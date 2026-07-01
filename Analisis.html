@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Análisis de Mercado — Parrilla Rutera Indie</title>
+    <style>
+        :root {
+            --bg: #120c09;
+            --bg-2: #20120b;
+            --cream: #fff0cf;
+            --muted: #d9b98a;
+            --orange: #ff8a24;
+            --red: #e7471d;
+            --yellow: #ffd166;
+            --green: #9fd356;
+            --dark: #080605;
+            --card: rgba(255, 240, 207, 0.08);
+            --card-strong: rgba(255, 240, 207, 0.14);
+            --stroke: rgba(255, 240, 207, 0.18);
+            --shadow: 0 24px 70px rgba(0, 0, 0, .45);
+            --radius: 28px;
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--cream);
+            background:
+                radial-gradient(circle at 18% 7%, rgba(255, 138, 36, .25), transparent 28%),
+                radial-gradient(circle at 86% 14%, rgba(231, 71, 29, .18), transparent 25%),
+                linear-gradient(135deg, var(--bg), var(--bg-2) 48%, #090605);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .10;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+            background-size: 18px 18px;
+            mix-blend-mode: screen;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto 0 0 0;
+            height: 34vh;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 50% 100%, rgba(255, 138, 36, .26), transparent 56%),
+                linear-gradient(to top, rgba(8, 6, 5, .82), transparent);
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
+            box-shadow: 0 0 22px rgba(255, 138, 36, .8);
+            z-index: 200;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 18px;
+            width: min(var(--max), calc(100% - 28px));
+            margin: 18px auto 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 12px 10px 16px;
+            background: rgba(8, 6, 5, .58);
+            border: 1px solid var(--stroke);
+            border-radius: 999px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            box-shadow: 0 0 28px rgba(255, 138, 36, .45);
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            background: var(--dark);
+            border-radius: 3px;
+        }
+
+        .brand-mark::before {
+            width: 18px;
+            height: 4px;
+            left: 6px;
+            top: 8px;
+            box-shadow: 0 7px 0 var(--dark), 0 14px 0 var(--dark);
+        }
+
+        .brand-mark::after {
+            width: 4px;
+            height: 18px;
+            top: 6px;
+            left: 8px;
+            box-shadow: 7px 0 0 var(--dark), 14px 0 0 var(--dark);
+            opacity: .42;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            border: 1px solid var(--stroke);
+            color: var(--cream);
+            background: rgba(255, 255, 255, .06);
+            border-radius: 999px;
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .18s ease, background .18s ease, border-color .18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, .14);
+            border-color: rgba(255, 209, 102, .42);
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: min(var(--max), calc(100% - 28px));
+            margin: 26px auto 80px;
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        aside {
+            position: sticky;
+            top: 96px;
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: rgba(8, 6, 5, .48);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .24);
+            padding: 18px;
+            max-height: calc(100vh - 118px);
+            overflow: auto;
+        }
+
+        .toc-title {
+            color: var(--yellow);
+            font-weight: 950;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin: 0 0 14px;
+        }
+
+        .toc {
+            display: grid;
+            gap: 6px;
+        }
+
+        .toc a {
+            display: block;
+            color: rgba(255, 240, 207, .72);
+            font-size: 13px;
+            line-height: 1.2;
+            padding: 9px 10px;
+            border-radius: 14px;
+            transition: .18s ease;
+            border: 1px solid transparent;
+        }
+
+        .toc a:hover,
+        .toc a.active {
+            color: var(--dark);
+            background: var(--yellow);
+            border-color: rgba(255, 209, 102, .45);
+        }
+
+        main {
+            display: grid;
+            gap: 22px;
+        }
+
+        .hero,
+        .section {
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03)),
+                rgba(8, 6, 5, .42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero {
+            min-height: 520px;
+            display: grid;
+            align-items: end;
+            padding: clamp(34px, 5vw, 68px);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(8, 6, 5, .94) 0%, rgba(8, 6, 5, .62) 50%, rgba(8, 6, 5, .18)),
+                radial-gradient(circle at 75% 50%, rgba(255, 138, 36, .34), transparent 35%);
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: 6%;
+            bottom: 11%;
+            width: min(430px, 42vw);
+            aspect-ratio: 1.23 / .72;
+            border-radius: 28px;
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 240, 207, .58) 0 5px, transparent 5px 28px),
+                radial-gradient(circle at 20% 70%, #ffcf66 0 7px, #e7471d 8px 18px, transparent 19px),
+                radial-gradient(circle at 58% 58%, #ffcf66 0 8px, #e7471d 9px 22px, transparent 23px),
+                radial-gradient(circle at 80% 78%, #ffcf66 0 6px, #e7471d 7px 16px, transparent 17px),
+                #120c09;
+            border: 5px solid rgba(255, 240, 207, .18);
+            box-shadow: inset 0 -22px 30px rgba(0, 0, 0, .35), 0 30px 80px rgba(0, 0, 0, .55);
+            opacity: .82;
+            transform: rotate(-3deg);
+            animation: emberPulse 1.7s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes emberPulse {
+            from {
+                filter: brightness(.92) saturate(1.1);
+            }
+
+            to {
+                filter: brightness(1.28) saturate(1.5);
+            }
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            width: fit-content;
+            gap: 10px;
+            align-items: center;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            border: 1px solid rgba(255, 138, 36, .28);
+            color: var(--yellow);
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: clamp(48px, 8vw, 112px);
+            line-height: .84;
+            letter-spacing: -.08em;
+            text-transform: uppercase;
+            max-width: 900px;
+            text-shadow: 0 12px 38px rgba(0, 0, 0, .45);
+        }
+
+        h2 {
+            font-size: clamp(34px, 5vw, 68px);
+            line-height: .92;
+            letter-spacing: -.06em;
+            text-transform: uppercase;
+            max-width: 960px;
+        }
+
+        h3 {
+            font-size: clamp(22px, 2.2vw, 32px);
+            letter-spacing: -.03em;
+        }
+
+        .lead {
+            margin-top: 18px;
+            font-size: clamp(18px, 2.1vw, 26px);
+            line-height: 1.22;
+            color: rgba(255, 240, 207, .86);
+            max-width: 880px;
+            font-weight: 650;
+        }
+
+        .meta-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 26px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid var(--stroke);
+            color: rgba(255, 240, 207, .84);
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .section {
+            padding: clamp(28px, 4.6vw, 56px);
+        }
+
+        .section-head {
+            margin-bottom: 24px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .section-head p,
+        .copy p,
+        .card p,
+        li {
+            color: rgba(255, 240, 207, .80);
+            line-height: 1.6;
+            font-size: 16.5px;
+        }
+
+        .copy {
+            display: grid;
+            gap: 16px;
+            max-width: 930px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .grid.cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid.cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid.cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .card {
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: var(--card);
+            padding: 22px;
+            min-height: 130px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -44px;
+            top: -44px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            filter: blur(2px);
+        }
+
+        .card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 15px;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card span {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.38;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card.emphasis {
+            background: linear-gradient(135deg, rgba(255, 209, 102, .16), rgba(255, 138, 36, .08));
+            border-color: rgba(255, 209, 102, .32);
+        }
+
+        .stat {
+            border-radius: 26px;
+            border: 1px solid rgba(255, 209, 102, .32);
+            background: linear-gradient(135deg, rgba(255, 209, 102, .16), rgba(255, 138, 36, .08));
+            padding: clamp(20px, 3vw, 32px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat .number {
+            display: block;
+            color: var(--yellow);
+            font-size: clamp(34px, 5vw, 66px);
+            line-height: .9;
+            font-weight: 950;
+            letter-spacing: -.06em;
+            margin-bottom: 10px;
+        }
+
+        .stat .label {
+            color: rgba(255, 240, 207, .82);
+            font-size: 16px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .table-wrap {
+            overflow: auto;
+            border: 1px solid var(--stroke);
+            border-radius: 22px;
+            background: rgba(8, 6, 5, .36);
+            margin-top: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        th,
+        td {
+            padding: 15px 16px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid rgba(255, 240, 207, .12);
+        }
+
+        th {
+            color: var(--yellow);
+            font-size: 12px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            background: rgba(255, 138, 36, .10);
+            white-space: nowrap;
+        }
+
+        td {
+            color: rgba(255, 240, 207, .82);
+            line-height: 1.42;
+            font-size: 15px;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        td:first-child {
+            color: var(--cream);
+            font-weight: 800;
+        }
+
+        .callout {
+            margin-top: 22px;
+            border: 1px solid rgba(159, 211, 86, .34);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(159, 211, 86, .13), rgba(255, 138, 36, .06));
+            padding: 22px;
+            color: rgba(255, 240, 207, .84);
+            line-height: 1.55;
+        }
+
+        .callout strong {
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .risk-low {
+            color: var(--green);
+            font-weight: 900;
+        }
+
+        .risk-mid {
+            color: var(--yellow);
+            font-weight: 900;
+        }
+
+        .risk-high {
+            color: #ff816a;
+            font-weight: 900;
+        }
+
+        .recommendations {
+            counter-reset: rec;
+            display: grid;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .rec {
+            counter-increment: rec;
+            display: grid;
+            grid-template-columns: 50px minmax(0, 1fr);
+            gap: 16px;
+            align-items: start;
+            border: 1px solid var(--stroke);
+            border-radius: 22px;
+            background: rgba(255, 240, 207, .07);
+            padding: 18px;
+        }
+
+        .rec::before {
+            content: counter(rec);
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            display: grid;
+            place-items: center;
+            color: var(--dark);
+            background: var(--yellow);
+            font-weight: 950;
+            font-size: 22px;
+            box-shadow: 0 14px 32px rgba(255, 209, 102, .18);
+        }
+
+        .rec h3 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+
+        .rec p {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.45;
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 240, 207, .56);
+            font-size: 13px;
+            padding: 24px 0 0;
+        }
+
+        @media (max-width: 980px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: relative;
+                top: auto;
+                max-height: none;
+            }
+
+            .toc {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .grid.cols-2,
+            .grid.cols-3,
+            .grid.cols-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero::after {
+                opacity: .28;
+                width: 70vw;
+                right: -12%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .topbar {
+                border-radius: 22px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .top-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .btn {
+                flex: 1;
+            }
+
+            .toc {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 50px;
+            }
+
+            .hero {
+                min-height: 460px;
+            }
+
+            .rec {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                color: #1f1b18;
+            }
+
+            body::before,
+            body::after,
+            .progress,
+            .topbar,
+            aside {
+                display: none;
+            }
+
+            .shell {
+                display: block;
+                width: 100%;
+                margin: 0;
+            }
+
+            .hero,
+            .section {
+                box-shadow: none;
+                background: #fff;
+                color: #1f1b18;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+                margin-bottom: 16px;
+            }
+
+            .hero::before,
+            .hero::after,
+            .card::before {
+                display: none;
+            }
+
+            h1,
+            h2,
+            h3,
+            .card strong,
+            th,
+            .stat .number,
+            .eyebrow {
+                color: #1f1b18;
+            }
+
+            .lead,
+            .section-head p,
+            .copy p,
+            .card span,
+            .card p,
+            td,
+            li,
+            .rec p {
+                color: #333;
+            }
+
+            .table-wrap {
+                border-color: #ddd;
+                background: #fff;
+            }
+
+            th {
+                background: #f2f2f2;
+                color: #222;
+            }
+
+            td,
+            th {
+                border-bottom: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress" id="progress"></div>
+
+    <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Volver al inicio">
+            <span class="brand-mark"></span>
+            <span>Parrilla Rutera Indie</span>
+        </a>
+        <div class="top-actions">
+            <a class="btn" href="index.html">Index</a>
+            <button class="btn" onclick="window.print()">Imprimir / PDF</button>
+            <a class="btn" href="#conclusiones">Conclusiones</a>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside>
+            <p class="toc-title">Índice</p>
+            <nav class="toc" id="toc">
+                <a href="#inicio">Inicio</a>
+                <a href="#resumen">1. Resumen ejecutivo</a>
+                <a href="#mercado">2. Contexto del mercado indie</a>
+                <a href="#tamano">2.1 Tamaño y crecimiento</a>
+                <a href="#competitiva">2.2 Dinámica competitiva</a>
+                <a href="#descubrimiento">2.3 Canales de descubrimiento</a>
+                <a href="#concepto">3. Concepto: Parrilla Rutera 2D</a>
+                <a href="#valor">3.2 Propuesta de valor</a>
+                <a href="#benchmarks">3.3 Benchmarks competitivos</a>
+                <a href="#publico">3.4 Público objetivo</a>
+                <a href="#riesgos">3.5 Riesgos y mitigaciones</a>
+                <a href="#conclusiones">4. Conclusiones</a>
+                <a href="#acciones">4.2 Acciones recomendadas</a>
+                <a href="#fuentes">Fuentes</a>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="hero" id="inicio">
+                <div>
+                    <span class="eyebrow">Análisis de mercado · Abril 2026</span>
+                    <h1>Simulación 2D: Parrilla Rutera Indie</h1>
+                    <p class="lead">Evaluación comercial del concepto de un videojuego indie de cocina y gestión
+                        ambientado en una parrilla de ruta latinoamericana, con análisis de mercado, competidores,
+                        público objetivo, riesgos y recomendaciones estratégicas.</p>
+                    <div class="meta-row">
+                        <span class="pill">Incluye títulos de Purple Play LLC</span>
+                        <span class="pill">Steam como plataforma primaria</span>
+                        <span class="pill">Precio sugerido: USD 10–15</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="resumen">
+                <div class="section-head">
+                    <span class="eyebrow">1. Resumen ejecutivo</span>
+                    <h2>Una oportunidad indie con identidad cultural clara</h2>
+                    <p>El análisis examina la viabilidad comercial de un juego indie de simulación 2D ambientado en una
+                        parrilla de ruta, dentro del mercado global de videojuegos indie y de simulación.</p>
+                </div>
+                <div class="copy">
+                    <p>El concepto combina dos segmentos de alto crecimiento: los simuladores de cocina y gestión, y la
+                        estética 2D de nicho, con un enfoque cultural latinoamericano que representa una propuesta
+                        diferenciadora clara.</p>
+                    <p>Además, se consideran dos títulos publicados por Purple Play LLC —publisher indie enfocado en
+                        LATAM— para comprender el perfil editorial del sello y su posible alineación con el proyecto:
+                        <strong>Desvelado</strong> y <strong>Baki Hanma: Blood Arena</strong>.</p>
+                </div>
+                <div class="grid cols-3" style="margin-top:24px;">
+                    <div class="card emphasis"><strong>Oportunidad</strong><span>La parrilla rutera funciona como
+                            universo cultural reconocible, emocional y poco explotado en videojuegos.</span></div>
+                    <div class="card"><strong>Diferenciador</strong><span>Simulación 2D con identidad LATAM frente a un
+                            mercado de cocina dominado por propuestas 3D o genéricas.</span></div>
+                    <div class="card"><strong>Hipótesis comercial</strong><span>Entrada viable con Early Access, demo
+                            gratuita y precio accesible para maximizar conversión inicial.</span></div>
+                </div>
+            </section>
+
+            <section class="section" id="mercado">
+                <div class="section-head">
+                    <span class="eyebrow">2. Contexto del mercado indie</span>
+                    <h2>Un mercado en crecimiento, pero con alta presión de visibilidad</h2>
+                    <p>El mercado indie muestra expansión sostenida, aunque la competencia por atención en Steam obliga
+                        a construir una estrategia clara de descubrimiento, comunidad y diferenciación.</p>
+                </div>
+                <div class="grid cols-4">
+                    <div class="stat"><span class="number">USD 10.830 MM</span><span class="label">Proyección del
+                            mercado indie global para 2031.</span></div>
+                    <div class="stat"><span class="number">USD 31.750 MM</span><span class="label">Valor del mercado de
+                            simulación en 2024.</span></div>
+                    <div class="stat"><span class="number">17,5%</span><span class="label">CAGR estimado para simulación
+                            entre 2025 y 2033.</span></div>
+                    <div class="stat"><span class="number">91,25%</span><span class="label">Peso de la distribución
+                            digital indie en 2025.</span></div>
+                </div>
+            </section>
+
+            <section class="section" id="tamano">
+                <div class="section-head">
+                    <span class="eyebrow">2.1 Tamaño y crecimiento</span>
+                    <h2>Datos principales del mercado</h2>
+                    <p>Los indicadores muestran que la simulación y la distribución digital sostienen una oportunidad
+                        relevante para títulos indie con posicionamiento claro.</p>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>Dato / Proyección</th>
+                                <th>Fuente / Período</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mercado indie global</td>
+                                <td>USD 10.830 MM</td>
+                                <td>Proyección para 2031</td>
+                            </tr>
+                            <tr>
+                                <td>Mercado de simulación</td>
+                                <td>USD 31.750 MM</td>
+                                <td>Valoración 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Mercado de simulación proyectado</td>
+                                <td>USD 54.000 MM</td>
+                                <td>Proyección para 2033</td>
+                            </tr>
+                            <tr>
+                                <td>CAGR simulación</td>
+                                <td>17,5%</td>
+                                <td>2025–2033</td>
+                            </tr>
+                            <tr>
+                                <td>Distribución digital indie</td>
+                                <td>91,25%</td>
+                                <td>2025</td>
+                            </tr>
+                            <tr>
+                                <td>Modelo premium de un solo pago</td>
+                                <td>60,12%</td>
+                                <td>Dominante en Steam</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout"><strong>Lectura estratégica:</strong> el crecimiento no garantiza éxito por sí
+                    solo. Para un proyecto chico, la ventaja debe estar en una propuesta fácil de comunicar, visualmente
+                    reconocible y compatible con clips de gameplay.</div>
+            </section>
+
+            <section class="section" id="competitiva">
+                <div class="section-head">
+                    <span class="eyebrow">2.2 Dinámica competitiva</span>
+                    <h2>Steam premia visibilidad, claridad y ejecución</h2>
+                    <p>El mercado indie opera bajo una lógica concentrada: una fracción pequeña de títulos captura la
+                        mayor parte de los ingresos.</p>
+                </div>
+                <div class="grid cols-2">
+                    <div class="card emphasis"><strong>Concentración de ingresos</strong><span>El 8,33% de los mejores
+                            títulos genera el 80% de los ingresos totales. Esto obliga a pensar marketing desde el
+                            desarrollo, no recién al final.</span></div>
+                    <div class="card"><strong>Saturación de lanzamientos</strong><span>En 2024 se lanzaron más de 18.000
+                            juegos en Steam, lo que eleva la barrera de visibilidad y hace clave una propuesta
+                            memorable.</span></div>
+                    <div class="card"><strong>Ventaja de simulación</strong><span>Los géneros de simulación presentan
+                            menor saturación relativa frente a acción, roguelikes y horror, con mejores tasas de éxito
+                            por lanzamiento.</span></div>
+                    <div class="card"><strong>Tendencia cozy</strong><span>El segmento cozy o de bienestar crece al
+                            16,78% anual y muestra menor sensibilidad al precio y mayor fidelidad de marca.</span></div>
+                </div>
+            </section>
+
+            <section class="section" id="descubrimiento">
+                <div class="section-head">
+                    <span class="eyebrow">2.3 Canales de descubrimiento</span>
+                    <h2>El gameplay vende cuando se entiende en segundos</h2>
+                    <p>YouTube se posiciona como el principal canal de descubrimiento de juegos indie, por encima del
+                        propio feed de Steam.</p>
+                </div>
+                <div class="grid cols-3">
+                    <div class="stat"><span class="number">31%</span><span class="label">YouTube como canal principal de
+                            descubrimiento indie.</span></div>
+                    <div class="stat"><span class="number">30%</span><span class="label">Videos de gameplay como
+                            disparador de compra.</span></div>
+                    <div class="stat"><span class="number">USD 15–25</span><span class="label">Rango de precio ideal
+                            para maximizar conversión inicial.</span></div>
+                </div>
+                <div class="callout"><strong>Implicancia para Parrilla Rutera:</strong> el juego debería estar diseñado
+                    para producir clips claros: pedidos entrando, carne cocinándose, caos controlado, clientes con
+                    personalidad y resultados visuales rápidos.</div>
+            </section>
+
+            <section class="section" id="concepto">
+                <div class="section-head">
+                    <span class="eyebrow">3. Análisis del concepto</span>
+                    <h2>Parrilla rutera 2D como universo jugable</h2>
+                    <p>Una parrilla rutera es un establecimiento informal de cocina a la parrilla típico de rutas
+                        sudamericanas, especialmente en Argentina, Uruguay, Chile y Brasil.</p>
+                </div>
+                <div class="copy">
+                    <p>El concepto combina mecánicas de gestión gastronómica, identidad cultural latinoamericana y
+                        estética visual propia. En conjunto, estos elementos no presentan un precedente directo fuerte
+                        en el mercado indie principal.</p>
+                    <p>La oportunidad no está únicamente en cocinar carne, sino en construir un sistema alrededor del
+                        ritmo de ruta: clientes apurados, pedidos regionales, clima, stock, cortes, brasas,
+                        acompañamientos y progresión del local.</p>
+                </div>
+            </section>
+
+            <section class="section" id="valor">
+                <div class="section-head">
+                    <span class="eyebrow">3.2 Propuesta de valor diferenciadora</span>
+                    <h2>Por qué puede destacarse</h2>
+                    <p>La diferenciación se apoya en identidad cultural, costo de producción razonable y una audiencia
+                        doble: LATAM e internacional.</p>
+                </div>
+                <div class="grid cols-2">
+                    <div class="card emphasis"><strong>Vacío de mercado</strong><span>No existe un simulador de parrilla
+                            con identidad LATAM claramente instalado en Steam o plataformas indie principales.</span>
+                    </div>
+                    <div class="card"><strong>Autenticidad cultural</strong><span>El asado, el choripán y la clientela
+                            de ruta ofrecen narrativas, personajes y mecánicas con textura emocional reconocible.</span>
+                    </div>
+                    <div class="card"><strong>Producción 2D accesible</strong><span>El enfoque 2D reduce costos frente a
+                            simuladores 3D competidores, manteniendo viabilidad para estudios pequeños.</span></div>
+                    <div class="card"><strong>Doble audiencia</strong><span>Puede atraer jugadores LATAM por
+                            identificación cultural y jugadores internacionales por novedad culinaria y estética
+                            regional.</span></div>
+                    <div class="card"><strong>Cozy con identidad</strong><span>El ambiente de ruta, música folklórica y
+                            gestión relajada encajan con tendencias cozy, pero sin perder personalidad propia.</span>
+                    </div>
+                    <div class="card"><strong>Comunicación simple</strong><span>El concepto se explica rápido:
+                            administrar una parrilla de ruta, cocinar cortes, atender clientes y crecer el
+                            negocio.</span></div>
+                </div>
+            </section>
+
+            <section class="section" id="benchmarks">
+                <div class="section-head">
+                    <span class="eyebrow">3.3 Benchmarks competitivos</span>
+                    <h2>Referencias del ecosistema de cocina y gestión</h2>
+                    <p>La escena de simuladores de cocina está dominada por títulos 3D con enfoque europeo o genérico.
+                        El nicho 2D con identidad cultural regional aparece como una zona menos explorada.</p>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Género / Estilo</th>
+                                <th>Reseñas Steam</th>
+                                <th>Score</th>
+                                <th>Precio</th>
+                                <th>Diferenciador</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cooking Simulator</td>
+                                <td>Simulación de cocina 3D / Single player</td>
+                                <td>+19.400 reseñas</td>
+                                <td>Muy positivas</td>
+                                <td>~USD 20</td>
+                                <td>Física realista y más de 80 recetas.</td>
+                            </tr>
+                            <tr>
+                                <td>Kebab Chefs!</td>
+                                <td>Simulación de restaurante cooperativo 3D</td>
+                                <td>+7.400 reseñas</td>
+                                <td>Muy positivas</td>
+                                <td>~USD 20</td>
+                                <td>Co-op hasta 4 jugadores.</td>
+                            </tr>
+                            <tr>
+                                <td>Fast Food Simulator</td>
+                                <td>Simulación de restaurante cooperativo 3D</td>
+                                <td>+7.900 reseñas</td>
+                                <td>Muy positivas</td>
+                                <td>~USD 20</td>
+                                <td>Fast food caótico y cooperativo.</td>
+                            </tr>
+                            <tr>
+                                <td>Chef: A Restaurant Tycoon</td>
+                                <td>Tycoon de gestión 3D</td>
+                                <td>+1.300 reseñas</td>
+                                <td>Mayormente positivas</td>
+                                <td>~USD 15</td>
+                                <td>Modo historia y sandbox.</td>
+                            </tr>
+                            <tr>
+                                <td>Parrilla Rutera 2D</td>
+                                <td>Simulación 2D / LATAM</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>USD 10–15</td>
+                                <td>Identidad cultural, producción 2D y nicho regional.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="publico">
+                <div class="section-head">
+                    <span class="eyebrow">3.4 Público objetivo</span>
+                    <h2>Audiencias principales</h2>
+                    <p>El proyecto puede hablarle tanto a jugadores con identificación cultural directa como a
+                        audiencias internacionales interesadas en propuestas únicas.</p>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Segmento</th>
+                                <th>Descripción</th>
+                                <th>Potencial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Core LATAM</td>
+                                <td>Jugadores hispanohablantes de 18 a 35 años con experiencia cultural directa con el
+                                    asado y la parrilla. Alta identificación emocional.</td>
+                                <td>Alto</td>
+                            </tr>
+                            <tr>
+                                <td>Casual Cozy</td>
+                                <td>Jugadores de simuladores relajados como Stardew Valley o Unpacking. Buscan
+                                    experiencias tranquilas con identidad.</td>
+                                <td>Medio-Alto</td>
+                            </tr>
+                            <tr>
+                                <td>Foodies / Gastronomía</td>
+                                <td>Audiencia internacional atraída por cocinas del mundo, activa en YouTube e
+                                    Instagram.</td>
+                                <td>Medio</td>
+                            </tr>
+                            <tr>
+                                <td>Coleccionistas indie</td>
+                                <td>Compradores de Steam con interés en títulos únicos, pequeños y culturalmente
+                                    diversos.</td>
+                                <td>Medio</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="riesgos">
+                <div class="section-head">
+                    <span class="eyebrow">3.5 Riesgos y mitigaciones</span>
+                    <h2>Riesgos comerciales clave</h2>
+                    <p>El mayor riesgo no está en la idea sino en la visibilidad. La mitigación principal debe ser una
+                        estrategia temprana de comunidad, creadores, demo y Steam wishlists.</p>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Riesgo</th>
+                                <th>Nivel</th>
+                                <th>Mitigación recomendada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nicho demasiado local</td>
+                                <td><span class="risk-mid">Medio</span></td>
+                                <td>Añadir texto en inglés y contexto culinario universal en marketing.</td>
+                            </tr>
+                            <tr>
+                                <td>Competencia de títulos 3D</td>
+                                <td><span class="risk-mid">Bajo-Medio</span></td>
+                                <td>Presentar el 2D como ventaja de costo, identidad visual y lectura rápida, no como
+                                    debilidad.</td>
+                            </tr>
+                            <tr>
+                                <td>Visibilidad en Steam</td>
+                                <td><span class="risk-high">Alto</span></td>
+                                <td>Presupuesto para creadores de contenido LATAM, demo gratuita y campaña de wishlist
+                                    previa.</td>
+                            </tr>
+                            <tr>
+                                <td>Alcance de ventas limitado</td>
+                                <td><span class="risk-mid">Medio</span></td>
+                                <td>Precio de entrada bajo, Early Access y contenido escalable.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="conclusiones">
+                <div class="section-head">
+                    <span class="eyebrow">4. Conclusiones y recomendaciones</span>
+                    <h2>Viabilidad clara, condicionada por ejecución y marketing</h2>
+                    <p>Una simulación 2D de parrilla rutera se posiciona en el cruce de simuladores de cocina/gestión y
+                        producción indie de identidad cultural latinoamericana.</p>
+                </div>
+                <div class="copy">
+                    <p>El concepto tiene viabilidad comercial clara, especialmente si apunta a un rango de precio de
+                        <strong>USD 10–15</strong> con una demo gratuita para reducir fricción de entrada.</p>
+                    <p>Su diferencial más importante es que no compite únicamente por realismo, sino por identidad,
+                        claridad de loop, estética accesible y capacidad de generar contenido compartible.</p>
+                </div>
+                <div class="callout"><strong>Conclusión central:</strong> el juego debería presentarse como una
+                    experiencia de gestión y cocina con sabor latinoamericano, no como una copia pequeña de simuladores
+                    3D de restaurante.</div>
+            </section>
+
+            <section class="section" id="acciones">
+                <div class="section-head">
+                    <span class="eyebrow">4.2 Puntos de acción recomendados</span>
+                    <h2>Plan estratégico sugerido</h2>
+                    <p>Las acciones priorizan reducción de riesgo, construcción de comunidad y una salida comercial
+                        gradual.</p>
+                </div>
+                <div class="recommendations">
+                    <div class="rec">
+                        <div>
+                            <h3>Precio</h3>
+                            <p>Lanzar en Early Access entre USD 8–12 y proyectar lanzamiento completo a USD 13–15.</p>
+                        </div>
+                    </div>
+                    <div class="rec">
+                        <div>
+                            <h3>Contenido</h3>
+                            <p>Priorizar profundidad del loop de gestión: variedad de cortes, clientes con personalidad,
+                                gestión de insumos, clima y competencia de la ruta.</p>
+                        </div>
+                    </div>
+                    <div class="rec">
+                        <div>
+                            <h3>Marketing</h3>
+                            <p>Invertir en creadores LATAM de YouTube y TikTok. Un video de gameplay bien editado puede
+                                ser central para la conversión.</p>
+                        </div>
+                    </div>
+                    <div class="rec">
+                        <div>
+                            <h3>Plataformas</h3>
+                            <p>Steam como plataforma primaria. Nintendo Switch como segundo objetivo por su ecosistema
+                                indie activo.</p>
+                        </div>
+                    </div>
+                    <div class="rec">
+                        <div>
+                            <h3>Idiomas</h3>
+                            <p>Español LATAM, inglés y portugués de Brasil como mínimo para lanzamiento o Early Access
+                                ampliado.</p>
+                        </div>
+                    </div>
+                    <div class="rec">
+                        <div>
+                            <h3>Publisher</h3>
+                            <p>Purple Play LLC aparece como candidato natural por especialización LATAM y experiencia en
+                                títulos 2D. Conviene negociar términos de marketing activo y conservación de IP.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="fuentes">
+                <div class="section-head">
+                    <span class="eyebrow">Fuentes declaradas</span>
+                    <h2>Base documental</h2>
+                    <p>Documento elaborado con datos de Steam, SteamSpy, Steambase, purpleplay.games, OpenCritic, Mordor
+                        Intelligence y fuentes especializadas de mercado indie — Abril 2026.</p>
+                </div>
+                <div class="callout"><strong>Nota:</strong> esta versión organiza y presenta el análisis provisto en
+                    formato web legible. Los datos de mercado no fueron recalculados ni verificados en esta conversión
+                    visual.</div>
+            </section>
+
+            <div class="footer">Análisis de mercado · Simulación 2D: Parrilla Rutera Indie · Abril 2026</div>
+        </main>
+    </div>
+
+    <script>
+        const progress = document.getElementById('progress');
+        const links = [...document.querySelectorAll('.toc a')];
+        const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+        function updateProgress() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            progress.style.width = height > 0 ? `${(scrollTop / height) * 100}%` : '0%';
+        }
+
+        function updateActive() {
+            let current = sections[0];
+            for (const section of sections) {
+                const top = section.getBoundingClientRect().top;
+                if (top <= 140) current = section;
+            }
+            links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current.id}`));
+        }
+
+        window.addEventListener('scroll', () => { updateProgress(); updateActive(); }, { passive: true });
+        updateProgress();
+        updateActive();
+    </script>
+</body>
+
+</html>

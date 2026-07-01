@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Publisher Ideal — Purple Play</title>
+    <style>
+        :root {
+            --bg: #120c09;
+            --bg-2: #20120b;
+            --cream: #fff0cf;
+            --muted: #d9b98a;
+            --orange: #ff8a24;
+            --red: #e7471d;
+            --yellow: #ffd166;
+            --green: #9fd356;
+            --dark: #080605;
+            --card: rgba(255, 240, 207, 0.08);
+            --card-strong: rgba(255, 240, 207, 0.14);
+            --stroke: rgba(255, 240, 207, 0.18);
+            --shadow: 0 24px 70px rgba(0, 0, 0, .45);
+            --radius: 28px;
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--cream);
+            background:
+                radial-gradient(circle at 16% 7%, rgba(255, 138, 36, .25), transparent 29%),
+                radial-gradient(circle at 88% 16%, rgba(231, 71, 29, .18), transparent 26%),
+                linear-gradient(135deg, var(--bg), var(--bg-2) 48%, #090605);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .10;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+            background-size: 18px 18px;
+            mix-blend-mode: screen;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto 0 0 0;
+            height: 34vh;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 50% 100%, rgba(255, 138, 36, .27), transparent 57%),
+                linear-gradient(to top, rgba(8, 6, 5, .84), transparent);
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
+            box-shadow: 0 0 22px rgba(255, 138, 36, .8);
+            z-index: 200;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 18px;
+            width: min(var(--max), calc(100% - 28px));
+            margin: 18px auto 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 12px 10px 16px;
+            background: rgba(8, 6, 5, .58);
+            border: 1px solid var(--stroke);
+            border-radius: 999px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            box-shadow: 0 0 28px rgba(255, 138, 36, .45);
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            background: var(--dark);
+            border-radius: 3px;
+        }
+
+        .brand-mark::before {
+            width: 18px;
+            height: 4px;
+            left: 6px;
+            top: 8px;
+            box-shadow: 0 7px 0 var(--dark), 0 14px 0 var(--dark);
+        }
+
+        .brand-mark::after {
+            width: 4px;
+            height: 18px;
+            top: 6px;
+            left: 8px;
+            box-shadow: 7px 0 0 var(--dark), 14px 0 0 var(--dark);
+            opacity: .42;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            border: 1px solid var(--stroke);
+            color: var(--cream);
+            background: rgba(255, 255, 255, .06);
+            border-radius: 999px;
+            padding: 9px 13px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .18s ease, background .18s ease, border-color .18s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, .14);
+            border-color: rgba(255, 209, 102, .42);
+        }
+
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: min(var(--max), calc(100% - 28px));
+            margin: 26px auto 80px;
+            display: grid;
+            grid-template-columns: 280px minmax(0, 1fr);
+            gap: 22px;
+            align-items: start;
+        }
+
+        aside {
+            position: sticky;
+            top: 96px;
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: rgba(8, 6, 5, .48);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .24);
+            padding: 18px;
+            max-height: calc(100vh - 118px);
+            overflow: auto;
+        }
+
+        .toc-title {
+            color: var(--yellow);
+            font-weight: 950;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin: 0 0 14px;
+        }
+
+        .toc {
+            display: grid;
+            gap: 6px;
+        }
+
+        .toc a {
+            display: block;
+            color: rgba(255, 240, 207, .72);
+            font-size: 13px;
+            line-height: 1.2;
+            padding: 9px 10px;
+            border-radius: 14px;
+            transition: .18s ease;
+            border: 1px solid transparent;
+        }
+
+        .toc a:hover,
+        .toc a.active {
+            color: var(--dark);
+            background: var(--yellow);
+            border-color: rgba(255, 209, 102, .45);
+        }
+
+        main {
+            display: grid;
+            gap: 22px;
+        }
+
+        .hero,
+        .section {
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03)),
+                rgba(8, 6, 5, .42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero::before,
+        .section::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background:
+                radial-gradient(circle at 18% 12%, rgba(255, 209, 102, .16), transparent 28%),
+                radial-gradient(circle at 86% 92%, rgba(231, 71, 29, .13), transparent 26%);
+            z-index: -1;
+            opacity: .95;
+        }
+
+        .hero {
+            min-height: 560px;
+            padding: clamp(30px, 5vw, 68px);
+            display: grid;
+            align-content: center;
+        }
+
+        .section {
+            padding: clamp(26px, 4vw, 48px);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: 10px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            border: 1px solid rgba(255, 138, 36, .28);
+            color: var(--yellow);
+            font-weight: 850;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: clamp(50px, 9vw, 118px);
+            line-height: .84;
+            letter-spacing: -.08em;
+            text-transform: uppercase;
+            text-shadow: 0 12px 38px rgba(0, 0, 0, .45);
+            max-width: 960px;
+        }
+
+        h2 {
+            font-size: clamp(32px, 5vw, 64px);
+            line-height: .92;
+            letter-spacing: -.06em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            max-width: 930px;
+        }
+
+        h3 {
+            font-size: clamp(22px, 2.8vw, 32px);
+            letter-spacing: -.03em;
+            margin-bottom: 12px;
+        }
+
+        .lead {
+            font-size: clamp(18px, 2vw, 27px);
+            line-height: 1.2;
+            color: rgba(255, 240, 207, .85);
+            max-width: 850px;
+            font-weight: 650;
+            margin-top: 18px;
+        }
+
+        .body-text,
+        .section p,
+        li {
+            color: rgba(255, 240, 207, .78);
+            font-size: 17px;
+            line-height: 1.55;
+        }
+
+        .section p+p {
+            margin-top: 14px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+            gap: 28px;
+            align-items: center;
+        }
+
+        .hero-card {
+            border: 1px solid rgba(255, 209, 102, .28);
+            background: linear-gradient(135deg, rgba(255, 209, 102, .15), rgba(255, 138, 36, .08));
+            border-radius: 28px;
+            padding: 26px;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, .28);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 999px;
+            right: -70px;
+            top: -70px;
+            background: rgba(255, 138, 36, .18);
+            filter: blur(2px);
+        }
+
+        .hero-card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 10px;
+        }
+
+        .hero-card .big {
+            display: block;
+            font-size: clamp(36px, 4vw, 62px);
+            line-height: .9;
+            font-weight: 950;
+            letter-spacing: -.06em;
+            color: var(--cream);
+        }
+
+        .hero-card span:not(.big) {
+            display: block;
+            color: rgba(255, 240, 207, .76);
+            font-size: 16px;
+            line-height: 1.45;
+            margin-top: 12px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .card {
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: var(--card);
+            padding: 22px;
+            min-height: 136px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -44px;
+            top: -44px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+        }
+
+        .card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 16px;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            position: relative;
+        }
+
+        .card span,
+        .card p {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.42;
+            font-size: 16px;
+            position: relative;
+        }
+
+        .callout {
+            border: 1px solid rgba(159, 211, 86, .34);
+            background: linear-gradient(135deg, rgba(159, 211, 86, .12), rgba(255, 209, 102, .07));
+            border-radius: 24px;
+            padding: 22px;
+            margin: 18px 0;
+        }
+
+        .callout strong {
+            color: var(--green);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .warning {
+            border: 1px solid rgba(255, 209, 102, .30);
+            background: rgba(255, 209, 102, .08);
+            border-radius: 22px;
+            padding: 18px 20px;
+            color: rgba(255, 240, 207, .76);
+            font-size: 15px;
+            line-height: 1.45;
+            margin-top: 20px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 1px solid var(--stroke);
+            border-radius: 22px;
+            background: rgba(8, 6, 5, .30);
+            margin-top: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 15px 16px;
+            border-bottom: 1px solid rgba(255, 240, 207, .12);
+            vertical-align: top;
+            color: rgba(255, 240, 207, .80);
+            font-size: 15px;
+            line-height: 1.42;
+        }
+
+        th {
+            color: var(--yellow);
+            background: rgba(255, 138, 36, .12);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0 0;
+        }
+
+        .pill {
+            border: 1px solid rgba(255, 209, 102, .28);
+            background: rgba(255, 209, 102, .08);
+            color: rgba(255, 240, 207, .84);
+            border-radius: 999px;
+            padding: 9px 12px;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .03em;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .rating {
+            display: grid;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .rating-row {
+            display: grid;
+            grid-template-columns: 190px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            color: rgba(255, 240, 207, .78);
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .bar {
+            height: 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .10);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--yellow), var(--orange));
+        }
+
+        .quote {
+            border-left: 4px solid var(--yellow);
+            padding: 8px 0 8px 18px;
+            color: rgba(255, 240, 207, .82);
+            font-size: 19px;
+            line-height: 1.42;
+            font-weight: 650;
+            margin: 18px 0 0;
+        }
+
+        .footer {
+            text-align: center;
+            color: rgba(255, 240, 207, .52);
+            font-size: 13px;
+            line-height: 1.4;
+            padding: 12px 0 0;
+        }
+
+        @media (max-width: 980px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+
+            .hero-grid,
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .cols-2,
+            .cols-3,
+            .cols-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .rating-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                border-radius: 22px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .top-actions {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .hero,
+            .section {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: clamp(46px, 15vw, 76px);
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                color: #111;
+            }
+
+            body::before,
+            body::after,
+            .progress,
+            .topbar,
+            aside {
+                display: none !important;
+            }
+
+            .shell {
+                width: 100%;
+                margin: 0;
+                display: block;
+            }
+
+            .hero,
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                background: #fff;
+                color: #111;
+                page-break-inside: avoid;
+                margin-bottom: 18px;
+            }
+
+            h1,
+            h2,
+            h3,
+            .eyebrow,
+            .card strong,
+            th {
+                color: #111 !important;
+            }
+
+            .lead,
+            .body-text,
+            .section p,
+            li,
+            td,
+            .card span,
+            .quote {
+                color: #222 !important;
+            }
+
+            .card,
+            .callout,
+            .warning,
+            .table-wrap {
+                border: 1px solid #ddd;
+                background: #fff;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress" id="progress"></div>
+    <header class="topbar">
+        <div class="brand"><span class="brand-mark"></span> Publisher Ideal · Parrilla Rutera Indie</div>
+        <div class="top-actions">
+            <a class="btn" href="index.html">Index</a>
+            <a class="btn" href="#resumen">Ir al análisis</a>
+            <button class="btn" onclick="window.print()">Imprimir / PDF</button>
+        </div>
+    </header>
+
+    <div class="shell">
+        <aside>
+            <p class="toc-title">Índice</p>
+            <nav class="toc" id="toc">
+                <a href="#portada">Portada</a>
+                <a href="#resumen">Resumen ejecutivo</a>
+                <a href="#encaje">Encaje con Purple Play</a>
+                <a href="#catalogo">Catálogo y señales</a>
+                <a href="#desvelado">Caso Desvelado</a>
+                <a href="#baki">Caso Baki Hanma</a>
+                <a href="#aprendizajes">Aprendizajes para Parrilla Rutera</a>
+                <a href="#alternativas">Otras opciones viables</a>
+                <a href="#comparativa">Comparativa de publishers</a>
+                <a href="#recomendacion">Recomendación estratégica</a>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="hero" id="portada">
+                <div class="hero-grid">
+                    <div>
+                        <span class="eyebrow">Publisher ideal</span>
+                        <h1>Purple Play</h1>
+                        <p class="lead">Análisis del publisher más alineado con un videojuego indie 2D de parrilla
+                            rutera: identidad latinoamericana, estética arcade/casual y potencial de llegada global.</p>
+                        <div class="pill-row">
+                            <span class="pill">Publisher LATAM</span>
+                            <span class="pill">Juegos indie 2D</span>
+                            <span class="pill">Funding + QA</span>
+                            <span class="pill">Conservación de IP</span>
+                            <span class="pill">Cercanía cultural</span>
+                        </div>
+                    </div>
+                    <div class="hero-card">
+                        <strong>Tesis central</strong>
+                        <span class="big">Encaje alto</span>
+                        <span>Purple Play aparece como la opción principal porque combina experiencia argentina,
+                            catálogo con identidad regional y una propuesta editorial compatible con equipos indie
+                            pequeños.</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="resumen">
+                <span class="eyebrow">Resumen ejecutivo</span>
+                <h2>Por qué Purple Play es el candidato natural</h2>
+                <p>Purple Play es un publisher de videojuegos enfocado en juegos indie latinoamericanos. Funciona como
+                    una división de Purple Tree, estudio de desarrollo con sede en Buenos Aires que acumula más de 14
+                    años de experiencia en juegos arcade con personalidad.</p>
+                <p>Para un proyecto como <strong>Parrilla Rutera Indie</strong>, la combinación entre identidad
+                    argentina, estética accesible, tono casual/arcade y potencial internacional vuelve a Purple Play una
+                    alternativa especialmente coherente. El publisher entiende el contexto cultural del juego y, al
+                    mismo tiempo, busca llevar propuestas latinoamericanas al mercado global.</p>
+                <div class="callout">
+                    <strong>Idea fuerza</strong>
+                    Parrilla Rutera no se presenta como un simulador genérico de cocina, sino como una experiencia indie
+                    con identidad cultural clara. Ese diferencial coincide con el tipo de catálogo que Purple Play
+                    parece querer construir.
+                </div>
+            </section>
+
+            <section class="section" id="encaje">
+                <span class="eyebrow">Encaje editorial</span>
+                <h2>¿Por qué el proyecto encaja en su catálogo?</h2>
+                <p>El catálogo actual de Purple Play se orienta hacia juegos con identidad regional fuerte, estética
+                    arcade y propuestas de juego claras. Publicaron títulos como <strong>Baki Hanma: Blood
+                        Arena</strong>, <strong>Beat the Champions</strong> y <strong>Desvelado</strong>, lo que muestra
+                    una línea editorial compatible con juegos de personalidad marcada y alcance internacional.</p>
+                <div class="grid cols-2">
+                    <div class="card"><strong>Identidad latinoamericana</strong><span>El asado, la parrilla de ruta, el
+                            choripán y los personajes locales funcionan como motor creativo y diferencial
+                            comercial.</span></div>
+                    <div class="card"><strong>Perfil arcade/casual</strong><span>El proyecto puede comunicar rápido su
+                            fantasía jugable: atender pedidos, manejar tiempos, cocinar cortes y sostener la presión de
+                            la clientela.</span></div>
+                    <div class="card"><strong>Publisher argentino</strong><span>La cercanía geográfica y cultural
+                            facilita la lectura del tono, los chistes, los rituales del asado y la sensibilidad del
+                            mercado LATAM.</span></div>
+                    <div class="card"><strong>Oferta integral</strong><span>El atractivo está en combinar apoyo de
+                            funding, QA y publicación con un modelo favorable donde el desarrollador conserva la
+                            propiedad del juego.</span></div>
+                </div>
+                <div class="quote">“Un equipo apasionado enfocado en traer los juegos más emocionantes y únicos de
+                    Latinoamérica al mercado global.”</div>
+            </section>
+
+            <section class="section" id="catalogo">
+                <span class="eyebrow">Catálogo observado</span>
+                <h2>Señales del perfil de Purple Play</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Tipo de juego</th>
+                                <th>Señal editorial</th>
+                                <th>Relación con Parrilla Rutera</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Desvelado</strong></td>
+                                <td>Precision platformer 2D de temática vampírica.</td>
+                                <td>Juego artesanal, single-player, estética hand-drawn y propuesta de nicho.</td>
+                                <td>Precedente directo para un indie 2D latinoamericano de equipo pequeño.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Baki Hanma: Blood Arena</strong></td>
+                                <td>Acción 2D basada en IP anime.</td>
+                                <td>Capacidad de trabajar con licencias, multi-plataforma y prensa internacional.</td>
+                                <td>Muestra alcance editorial, pero también alerta sobre contenido, precio y valor
+                                    percibido.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Beat the Champions</strong></td>
+                                <td>Fútbol arcade con licencia de AFA.</td>
+                                <td>Uso de identidad deportiva/regional como gancho comercial.</td>
+                                <td>Refuerza la compatibilidad con productos argentinos reconocibles culturalmente.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="desvelado">
+                <span class="eyebrow">Análisis de juego</span>
+                <h2>Desvelado</h2>
+                <p><strong>Desvelado</strong> es un precision platformer 2D de temática vampírica. El jugador controla a
+                    Vampy, un vampiro con insomnio que debe apagar todas las luces de su castillo para poder dormir,
+                    mientras esquiva fantasmas y supera puzzles de plataformas.</p>
+                <p>El juego se autodenomina <strong>“Bed-Time-Vania”</strong>, un subgénero propio que mezcla
+                    metroidvania con precision platformer. Su identidad se sostiene en una premisa simple, comunicable y
+                    visualmente reconocible.</p>
+                <div class="grid cols-3">
+                    <div class="card"><strong>Arte artesanal</strong><span>Estética hand-drawn caricaturesca y oscura,
+                            con personalidad visual clara.</span></div>
+                    <div class="card"><strong>Desafío gradual</strong><span>El jugador muere repetidamente, pero puede
+                            reiniciar de inmediato, reduciendo fricción.</span></div>
+                    <div class="card"><strong>Accesibilidad comercial</strong><span>Single player, soporte completo para
+                            gamepad y localización en varios idiomas.</span></div>
+                </div>
+                <div class="split">
+                    <div class="card"><strong>Éxito cualitativo</strong><span>El juego logró una recepción de usuarios
+                            extremadamente positiva en Steam, señal de buena calidad percibida y fuerte satisfacción del
+                            público alcanzado.</span></div>
+                    <div class="card"><strong>Límite cuantitativo</strong><span>Su alcance comercial estimado es
+                            acotado, lo que refleja la dificultad estructural de visibilidad para indies con bajo
+                            presupuesto de marketing.</span></div>
+                </div>
+                <div class="callout">
+                    <strong>Precedente para Parrilla Rutera</strong>
+                    Desvelado demuestra que Purple Play puede publicar juegos 2D de equipos pequeños de LATAM. La
+                    oportunidad de Parrilla Rutera está en ofrecer mayor rejugabilidad: gestión de negocio, progresión
+                    de menú, variedad de clientes y loops repetibles.
+                </div>
+            </section>
+
+            <section class="section" id="baki">
+                <span class="eyebrow">Análisis de juego</span>
+                <h2>Baki Hanma: Blood Arena</h2>
+                <p><strong>Baki Hanma: Blood Arena</strong> es un juego de acción 2D basado en el anime de Netflix
+                    <strong>Baki Hanma</strong>, con jugabilidad inspirada en <strong>Super Punch-Out!!</strong>. El
+                    jugador controla a Baki desde una perspectiva trasera, enfrentándose a oponentes de la franquicia
+                    mediante esquivas, bloqueos y contraataques.</p>
+                <div class="grid cols-2">
+                    <div class="card"><strong>Fortaleza de producción</strong><span>Arte 2D hand-drawn, filtro CRT
+                            retro, personajes musculosos y animaciones expresivas de pelea.</span></div>
+                    <div class="card"><strong>Licencia oficial</strong><span>El juego demuestra capacidad para trabajar
+                            con una IP internacional reconocible.</span></div>
+                    <div class="card"><strong>Experiencia single-player</strong><span>Campaña centrada en combate uno
+                            contra uno, sin multijugador.</span></div>
+                    <div class="card"><strong>Continuidad de expertise</strong><span>Construye sobre la experiencia
+                            previa del desarrollador con Thunder Ray, también inspirado en Punch-Out!.</span></div>
+                </div>
+                <h3 style="margin-top: 28px;">Problemas detectados en recepción</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problema</th>
+                                <th>Descripción</th>
+                                <th>Aprendizaje para Parrilla Rutera</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Escasez de contenido</strong></td>
+                                <td>Solo dos modos de juego principales y una tercera saga prometida como DLC.</td>
+                                <td>El Early Access debe mostrar profundidad real desde el inicio: progresión, clientes,
+                                    cortes, eventos y mejoras.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dificultad mal calibrada</strong></td>
+                                <td>Los ataques de los rivales son difíciles de leer y algunos se perciben como
+                                    inevitables.</td>
+                                <td>La presión contra reloj debe ser clara, justa y visualmente legible.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dependencia de la IP</strong></td>
+                                <td>El juego apela principalmente a fanáticos de Baki y no tanto a público general.</td>
+                                <td>Parrilla Rutera debe venderse por su loop jugable, no solo por la identidad
+                                    argentina.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Precio percibido como alto</strong></td>
+                                <td>USD 29,99 por 3-4 horas de contenido único fue señalado como una barrera.</td>
+                                <td>Conviene sostener un rango menor, con precio Early Access entre USD 8-12 y full
+                                    launch entre USD 13-15.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="aprendizajes">
+                <span class="eyebrow">Aplicación al proyecto</span>
+                <h2>Qué debe tomar Parrilla Rutera de estos casos</h2>
+                <div class="grid cols-2">
+                    <div class="card"><strong>Tomar de Desvelado</strong><span>Premisa simple, estética artesanal,
+                            identidad propia, escala viable y buena recepción cualitativa.</span></div>
+                    <div class="card"><strong>Evitar de Desvelado</strong><span>Duración demasiado corta, baja retención
+                            y dependencia de una experiencia que se agota rápido.</span></div>
+                    <div class="card"><strong>Tomar de Baki</strong><span>Capacidad de prensa, llegada internacional,
+                            producción visual marcada y publicación multiplataforma.</span></div>
+                    <div class="card"><strong>Evitar de Baki</strong><span>Precio desalineado con contenido, dependencia
+                            de fanbase específica y problemas de calibración jugable.</span></div>
+                </div>
+                <div class="rating">
+                    <div class="rating-row"><span>Encaje cultural</span>
+                        <div class="bar"><span style="width: 96%"></span></div><span>Muy alto</span>
+                    </div>
+                    <div class="rating-row"><span>Encaje de catálogo</span>
+                        <div class="bar"><span style="width: 88%"></span></div><span>Alto</span>
+                    </div>
+                    <div class="rating-row"><span>Potencial de soporte</span>
+                        <div class="bar"><span style="width: 82%"></span></div><span>Alto</span>
+                    </div>
+                    <div class="rating-row"><span>Riesgo comercial</span>
+                        <div class="bar"><span style="width: 48%"></span></div><span>Medio</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="alternativas">
+                <span class="eyebrow">Opciones secundarias</span>
+                <h2>Otras opciones viables</h2>
+                <div class="grid cols-3">
+                    <div class="card"><strong>Tlön Industries</strong><span>Empresa argentina con oficinas en Buenos
+                            Aires. Su fortaleza está en experiencias narrativas profundas y sistemas dinámicos. Aunque
+                            su tono suele ser más serio, su cercanía local y su actividad como publisher la convierten
+                            en una opción a explorar.</span></div>
+                    <div class="card"><strong>PlayWay S.A.</strong><span>Publisher polaco con gran expertise en
+                            simuladores. Su catálogo incluye Cooking Simulator, Car Mechanic Simulator, House Flipper y
+                            Thief Simulator. Podría potenciar el género, aunque quizás no priorice la identidad
+                            argentina como diferencial.</span></div>
+                    <div class="card"><strong>MarketerLab</strong><span>Publisher español enfocado en desarrolladores
+                            indies. Ofrece publicación y marketing a cambio de porcentaje de ventas. Es una opción de
+                            menor riesgo financiero, aunque con alcance y reputación menores.</span></div>
+                </div>
+            </section>
+
+            <section class="section" id="comparativa">
+                <span class="eyebrow">Comparativa</span>
+                <h2>Matriz de decisión editorial</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Publisher</th>
+                                <th>Fortaleza principal</th>
+                                <th>Riesgo principal</th>
+                                <th>Encaje con Parrilla Rutera</th>
+                                <th>Prioridad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Purple Play</strong></td>
+                                <td>Identidad LATAM, cercanía cultural, catálogo indie 2D/arcade y posible conservación
+                                    de IP.</td>
+                                <td>Debe negociarse un compromiso fuerte de marketing activo y visibilidad
+                                    post-lanzamiento.</td>
+                                <td>Muy alto: entiende el contexto argentino y puede vender la identidad regional como
+                                    diferencial.</td>
+                                <td><strong>1</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>PlayWay S.A.</strong></td>
+                                <td>Expertise masivo en simuladores y gran conocimiento del mercado Steam.</td>
+                                <td>Trato más impersonal y posible dilución del valor cultural argentino.</td>
+                                <td>Alto en género, medio en identidad.</td>
+                                <td><strong>2</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tlön Industries</strong></td>
+                                <td>Cercanía argentina, sensibilidad por juegos con sistemas y narrativa.</td>
+                                <td>Catálogo más serio, menos alineado con tono arcade/casual gastronómico.</td>
+                                <td>Medio-alto, especialmente por cercanía local.</td>
+                                <td><strong>3</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MarketerLab</strong></td>
+                                <td>Menor riesgo financiero por modelo de publicación/marketing.</td>
+                                <td>Menor alcance, menor reputación y menor especialización en LATAM.</td>
+                                <td>Medio, como alternativa de bajo riesgo.</td>
+                                <td><strong>4</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section" id="recomendacion">
+                <span class="eyebrow">Cierre estratégico</span>
+                <h2>Recomendación</h2>
+                <p>La recomendación principal es presentar el proyecto primero a <strong>Purple Play</strong>,
+                    posicionándolo como un juego indie 2D de gestión gastronómica con identidad argentina, alta
+                    rejugabilidad y potencial de comunicación orgánica en LATAM.</p>
+                <p>La propuesta debe enfatizar que el proyecto corrige algunos riesgos observados en otros títulos del
+                    catálogo: no depende de una IP externa, no se agota en una campaña breve y puede sostener una
+                    comunidad mediante actualizaciones, eventos, nuevos clientes, cortes de carne, desafíos y campañas
+                    con creadores de contenido.</p>
+                <div class="grid cols-2">
+                    <div class="card"><strong>Pitch recomendado</strong><span>“Un simulador 2D de parrilla rutera
+                            argentina, fácil de entender, culturalmente distintivo y con loop de gestión rejugable para
+                            Steam.”</span></div>
+                    <div class="card"><strong>Condición a negociar</strong><span>Solicitar soporte de marketing activo:
+                            demo, creadores LATAM, prensa internacional, localización y planificación de Early
+                            Access.</span></div>
+                </div>
+                <div class="warning">Nota: esta página organiza visualmente el contenido provisto para presentación. No
+                    verifica ni recalcula datos de recepción, ventas, precios, reseñas o condiciones comerciales de
+                    publishers.</div>
+            </section>
+
+            <div class="footer">Publisher Ideal — Purple Play · Página de análisis legible · Parrilla Rutera Indie</div>
+        </main>
+    </div>
+
+    <script>
+        const progress = document.getElementById('progress');
+        const links = [...document.querySelectorAll('.toc a')];
+        const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+        function onScroll() {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+            progress.style.width = pct + '%';
+
+            let current = sections[0]?.id;
+            for (const section of sections) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 160) current = section.id;
+            }
+            links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    </script>
+</body>
+
+</html>

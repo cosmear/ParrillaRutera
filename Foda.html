@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parrilla 40 — FODA del Equipo y Búsqueda Artista 2D</title>
+    <style>
+        :root {
+            --bg: #120c09;
+            --bg-2: #20120b;
+            --cream: #fff0cf;
+            --muted: #d9b98a;
+            --orange: #ff8a24;
+            --red: #e7471d;
+            --yellow: #ffd166;
+            --green: #9fd356;
+            --blue: #7cc7ff;
+            --dark: #080605;
+            --card: rgba(255, 240, 207, 0.08);
+            --card-strong: rgba(255, 240, 207, 0.14);
+            --stroke: rgba(255, 240, 207, 0.18);
+            --shadow: 0 24px 70px rgba(0, 0, 0, .45);
+            --radius: 28px;
+            --max: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--cream);
+            background:
+                radial-gradient(circle at 18% 8%, rgba(255, 138, 36, .25), transparent 30%),
+                radial-gradient(circle at 88% 18%, rgba(231, 71, 29, .22), transparent 26%),
+                radial-gradient(circle at 50% 92%, rgba(255, 209, 102, .13), transparent 32%),
+                linear-gradient(135deg, var(--bg), var(--bg-2) 48%, #090605);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .10;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+            background-size: 18px 18px;
+            mix-blend-mode: screen;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto 0 0 0;
+            height: 34vh;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 50% 100%, rgba(255, 138, 36, .28), transparent 56%),
+                linear-gradient(to top, rgba(8, 6, 5, .82), transparent);
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 4px;
+            width: 0%;
+            z-index: 200;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
+            box-shadow: 0 0 22px rgba(255, 138, 36, .8);
+        }
+
+        .topbar {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(var(--max), calc(100% - 28px));
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 12px 10px 16px;
+            background: rgba(8, 6, 5, .58);
+            border: 1px solid var(--stroke);
+            border-radius: 999px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            box-shadow: 0 0 28px rgba(255, 138, 36, .45);
+            position: relative;
+            flex: 0 0 auto;
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            background: var(--dark);
+            border-radius: 3px;
+        }
+
+        .brand-mark::before {
+            width: 18px;
+            height: 4px;
+            left: 6px;
+            top: 8px;
+            box-shadow: 0 7px 0 var(--dark), 0 14px 0 var(--dark);
+        }
+
+        .brand-mark::after {
+            width: 4px;
+            height: 18px;
+            top: 6px;
+            left: 8px;
+            box-shadow: 7px 0 0 var(--dark), 14px 0 0 var(--dark);
+            opacity: .42;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill-btn {
+            border: 1px solid rgba(255, 209, 102, .32);
+            color: var(--dark);
+            background: var(--yellow);
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-size: 12px;
+            transition: transform .18s ease, filter .18s ease;
+        }
+
+        .pill-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        .layout {
+            position: relative;
+            z-index: 1;
+            width: min(var(--max), calc(100% - 28px));
+            margin: 0 auto;
+            padding: 112px 0 72px;
+            display: grid;
+            grid-template-columns: 270px minmax(0, 1fr);
+            gap: 26px;
+        }
+
+        aside {
+            position: sticky;
+            top: 92px;
+            align-self: start;
+            border: 1px solid var(--stroke);
+            border-radius: 26px;
+            background: rgba(8, 6, 5, .46);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+            padding: 18px;
+        }
+
+        .side-title {
+            color: var(--yellow);
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            font-weight: 950;
+            margin: 0 0 14px;
+        }
+
+        .side-nav {
+            display: grid;
+            gap: 6px;
+        }
+
+        .side-nav a {
+            color: rgba(255, 240, 207, .74);
+            padding: 10px 11px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.2;
+            transition: .18s ease;
+            border: 1px solid transparent;
+        }
+
+        .side-nav a:hover,
+        .side-nav a.active {
+            color: var(--cream);
+            background: rgba(255, 240, 207, .09);
+            border-color: rgba(255, 240, 207, .13);
+        }
+
+        main {
+            display: grid;
+            gap: 24px;
+        }
+
+        .hero,
+        .section {
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03)),
+                rgba(8, 6, 5, .42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero {
+            min-height: 520px;
+            padding: clamp(30px, 5vw, 66px);
+            display: grid;
+            align-content: end;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(8, 6, 5, .96), rgba(8, 6, 5, .62) 52%, rgba(8, 6, 5, .18)),
+                radial-gradient(circle at 75% 48%, rgba(255, 138, 36, .38), transparent 34%);
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: 7%;
+            bottom: 12%;
+            width: clamp(220px, 34vw, 430px);
+            aspect-ratio: 1.22/.76;
+            border-radius: 30px;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, .16), transparent 22%),
+                #20130e;
+            border: 5px solid rgba(255, 240, 207, .18);
+            box-shadow: inset 0 -22px 30px rgba(0, 0, 0, .35), 0 30px 80px rgba(0, 0, 0, .55);
+            transform: rotate(-3deg);
+            opacity: .78;
+            z-index: -1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: 10px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            border: 1px solid rgba(255, 138, 36, .28);
+            color: var(--yellow);
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: clamp(52px, 8.5vw, 104px);
+            line-height: .88;
+            letter-spacing: -.08em;
+            text-transform: uppercase;
+            max-width: 900px;
+            text-shadow: 0 12px 38px rgba(0, 0, 0, .45);
+        }
+
+        h2 {
+            font-size: clamp(32px, 5vw, 64px);
+            line-height: .96;
+            letter-spacing: -.055em;
+            text-transform: uppercase;
+            max-width: 950px;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: clamp(22px, 2.8vw, 34px);
+            letter-spacing: -.035em;
+            margin-bottom: 12px;
+        }
+
+        h4 {
+            font-size: 17px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--yellow);
+            margin-bottom: 9px;
+        }
+
+        .lead {
+            font-size: clamp(18px, 2.2vw, 26px);
+            line-height: 1.18;
+            color: rgba(255, 240, 207, .86);
+            max-width: 820px;
+            font-weight: 650;
+            margin-top: 18px;
+        }
+
+        .section {
+            padding: clamp(26px, 4.2vw, 52px);
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 12%, rgba(255, 209, 102, .11), transparent 24%),
+                radial-gradient(circle at 88% 88%, rgba(231, 71, 29, .12), transparent 28%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .copy {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.58;
+            font-size: 17px;
+            max-width: 900px;
+        }
+
+        .meta-grid,
+        .cards-2,
+        .cards-3,
+        .cards-4 {
+            display: grid;
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .meta-grid {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .cards-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .cards-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .cards-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .card,
+        .swot-card,
+        .role-card,
+        .quote-card {
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: var(--card);
+            padding: 21px;
+            min-height: 132px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before,
+        .swot-card::before,
+        .role-card::before {
+            content: "";
+            position: absolute;
+            width: 128px;
+            height: 128px;
+            right: -52px;
+            top: -52px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .13);
+            filter: blur(2px);
+        }
+
+        .card strong,
+        .role-card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 17px;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card span,
+        .role-card span {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.42;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 7px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 240, 207, .18);
+            background: rgba(255, 240, 207, .07);
+            color: rgba(255, 240, 207, .82);
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .stat {
+            border-radius: 28px;
+            border: 1px solid rgba(255, 209, 102, .32);
+            background: linear-gradient(135deg, rgba(255, 209, 102, .16), rgba(255, 138, 36, .08));
+            padding: clamp(20px, 3vw, 34px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat .number {
+            display: block;
+            color: var(--yellow);
+            font-size: clamp(36px, 5vw, 70px);
+            line-height: .9;
+            font-weight: 950;
+            letter-spacing: -.06em;
+            margin-bottom: 10px;
+        }
+
+        .stat .label {
+            color: rgba(255, 240, 207, .82);
+            font-size: 17px;
+            line-height: 1.28;
+            font-weight: 700;
+        }
+
+        .swot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 26px;
+        }
+
+        .swot-card {
+            min-height: 260px;
+        }
+
+        .swot-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .swot-card h3 .badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 209, 102, .16);
+            border: 1px solid rgba(255, 209, 102, .28);
+            font-size: 18px;
+        }
+
+        .swot-card ul,
+        .role-card ul,
+        .list-clean {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .swot-card li,
+        .role-card li,
+        .list-clean li {
+            color: rgba(255, 240, 207, .80);
+            line-height: 1.4;
+            padding-left: 20px;
+            position: relative;
+            font-size: 16px;
+        }
+
+        .swot-card li::before,
+        .role-card li::before,
+        .list-clean li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .62em;
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--orange);
+            box-shadow: 0 0 14px rgba(255, 138, 36, .48);
+        }
+
+        .swot-card.strength {
+            border-color: rgba(159, 211, 86, .35);
+        }
+
+        .swot-card.opportunity {
+            border-color: rgba(255, 209, 102, .35);
+        }
+
+        .swot-card.weakness {
+            border-color: rgba(124, 199, 255, .30);
+        }
+
+        .swot-card.threat {
+            border-color: rgba(231, 71, 29, .36);
+        }
+
+        .swot-card.strength li::before {
+            background: var(--green);
+            box-shadow: 0 0 14px rgba(159, 211, 86, .48);
+        }
+
+        .swot-card.opportunity li::before {
+            background: var(--yellow);
+            box-shadow: 0 0 14px rgba(255, 209, 102, .48);
+        }
+
+        .swot-card.weakness li::before {
+            background: var(--blue);
+            box-shadow: 0 0 14px rgba(124, 199, 255, .42);
+        }
+
+        .swot-card.threat li::before {
+            background: var(--red);
+            box-shadow: 0 0 14px rgba(231, 71, 29, .48);
+        }
+
+        .timeline {
+            display: grid;
+            gap: 14px;
+            margin-top: 24px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 18px;
+            bottom: 18px;
+            left: 18px;
+            width: 3px;
+            border-radius: 999px;
+            background: linear-gradient(var(--yellow), var(--orange), var(--red));
+            opacity: .7;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 56px minmax(0, 1fr);
+            gap: 14px;
+            align-items: start;
+        }
+
+        .timeline-dot {
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            background: var(--yellow);
+            color: var(--dark);
+            display: grid;
+            place-items: center;
+            font-weight: 950;
+            box-shadow: 0 0 24px rgba(255, 209, 102, .36);
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            border: 1px solid var(--stroke);
+            border-radius: 20px;
+            background: rgba(255, 240, 207, .07);
+            padding: 18px;
+        }
+
+        .timeline-content strong {
+            color: var(--yellow);
+            display: block;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-size: 15px;
+        }
+
+        .timeline-content span {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.42;
+            font-size: 16px;
+        }
+
+        .callout {
+            margin-top: 22px;
+            border: 1px solid rgba(255, 209, 102, .32);
+            background: linear-gradient(135deg, rgba(255, 209, 102, .15), rgba(231, 71, 29, .10));
+            border-radius: 24px;
+            padding: 22px;
+            color: rgba(255, 240, 207, .84);
+            line-height: 1.5;
+            font-size: 17px;
+        }
+
+        .job-header {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 18px;
+            align-items: stretch;
+            margin-top: 22px;
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, rgba(255, 209, 102, .14), rgba(255, 138, 36, .08));
+            border-color: rgba(255, 209, 102, .28);
+            display: grid;
+            align-content: center;
+        }
+
+        .quote-card p {
+            font-size: clamp(23px, 3vw, 38px);
+            line-height: 1.02;
+            letter-spacing: -.04em;
+            font-weight: 950;
+            color: var(--yellow);
+        }
+
+        .quote-card span {
+            display: block;
+            margin-top: 12px;
+            color: rgba(255, 240, 207, .72);
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 22px;
+        }
+
+        .role-card {
+            min-height: 260px;
+        }
+
+        .role-card .label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--yellow);
+            background: rgba(255, 138, 36, .13);
+            border: 1px solid rgba(255, 138, 36, .25);
+            border-radius: 999px;
+            padding: 8px 11px;
+            font-size: 12px;
+            font-weight: 950;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 22px;
+            border: 1px solid var(--stroke);
+            border-radius: 22px;
+            background: rgba(8, 6, 5, .30);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 240, 207, .12);
+            vertical-align: top;
+            text-align: left;
+        }
+
+        th {
+            color: var(--yellow);
+            font-size: 12px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            background: rgba(255, 240, 207, .07);
+        }
+
+        td {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.42;
+            font-size: 15px;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .footer {
+            color: rgba(255, 240, 207, .58);
+            text-align: center;
+            font-size: 13px;
+            padding: 18px 8px 0;
+        }
+
+        @media (max-width: 980px) {
+            .layout {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
+            }
+
+            aside {
+                position: relative;
+                top: auto;
+            }
+
+            .side-nav {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .meta-grid,
+            .cards-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .cards-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .swot-grid,
+            .role-grid,
+            .job-header {
+                grid-template-columns: 1fr;
+            }
+
+            .hero::after {
+                opacity: .34;
+                right: -4%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .topbar {
+                top: 10px;
+                border-radius: 22px;
+                align-items: flex-start;
+            }
+
+            .brand {
+                font-size: 11px;
+                white-space: normal;
+            }
+
+            .pill-btn {
+                padding: 9px 10px;
+                font-size: 11px;
+            }
+
+            .layout {
+                width: min(100% - 18px, var(--max));
+                padding-top: 96px;
+            }
+
+            .hero,
+            .section {
+                border-radius: 22px;
+            }
+
+            .side-nav,
+            .meta-grid,
+            .cards-2,
+            .cards-4 {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: clamp(44px, 15vw, 72px);
+            }
+
+            h2 {
+                font-size: clamp(30px, 10vw, 48px);
+            }
+
+            .section {
+                padding: 24px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #120c09;
+            }
+
+            body::before,
+            body::after,
+            .progress,
+            .topbar,
+            aside {
+                display: none;
+            }
+
+            .layout {
+                display: block;
+                width: 100%;
+                padding: 0;
+            }
+
+            .hero,
+            .section {
+                break-inside: avoid;
+                margin-bottom: 18px;
+                box-shadow: none;
+            }
+
+            a {
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress" id="progress"></div>
+
+    <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>Parrilla 40 · Equipo & Talento</span>
+        </a>
+        <div class="top-actions">
+            <a class="pill-btn" href="index.html">Index</a>
+            <button class="pill-btn" onclick="window.print()">Imprimir / PDF</button>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside>
+            <p class="side-title">Contenido</p>
+            <nav class="side-nav" id="sideNav">
+                <a href="#inicio">Inicio</a>
+                <a href="#equipo">Equipo</a>
+                <a href="#foda">FODA</a>
+                <a href="#lectura">Lectura estratégica</a>
+                <a href="#busqueda">Búsqueda laboral</a>
+                <a href="#perfil">Perfil requerido</a>
+                <a href="#herramientas">Herramientas</a>
+                <a href="#cierre">Cierre</a>
+            </nav>
+        </aside>
+
+        <main>
+            <section class="hero" id="inicio">
+                <div class="eyebrow">Simulación de gestión de tiempo en cocina</div>
+                <h1>FODA del equipo</h1>
+                <p class="lead">Evaluación interna del equipo de desarrollo de <strong>Parrilla 40</strong> y búsqueda
+                    estratégica de un perfil artístico clave para fortalecer la identidad visual del proyecto.</p>
+                <div class="tag-row">
+                    <span class="tag">Gestión de cocina</span>
+                    <span class="tag">Pixel Art</span>
+                    <span class="tag">Unity 2022.3.28f1</span>
+                    <span class="tag">Vertical Slice</span>
+                    <span class="tag">Identidad argentina</span>
+                </div>
+            </section>
+
+            <section class="section" id="equipo">
+                <div class="eyebrow">Lista del equipo</div>
+                <h2>Equipo base del proyecto</h2>
+                <p class="copy">El equipo actual combina perfiles orientados a diseño, programación, comunicación y
+                    coordinación general. La sinergia del grupo es uno de los principales activos para avanzar sobre el
+                    prototipo y sostener el desarrollo del vertical slice.</p>
+
+                <div class="cards-4">
+                    <div class="card"><strong>Federico Leguizamo</strong><span>Integrante del equipo de desarrollo y
+                            diseño del proyecto.</span></div>
+                    <div class="card"><strong>Federico Degraf</strong><span>Integrante del equipo de desarrollo,
+                            comunicación y producción.</span></div>
+                    <div class="card"><strong>Cosme Argerich</strong><span>Integrante del equipo de desarrollo,
+                            coordinación y estrategia.</span></div>
+                    <div class="card"><strong>Simón Morales</strong><span>Integrante del equipo de desarrollo y soporte
+                            técnico.</span></div>
+                </div>
+
+                <div class="meta-grid">
+                    <div class="stat"><span class="number">4</span><span class="label">integrantes en el equipo
+                            fundador</span></div>
+                    <div class="stat"><span class="number">2D</span><span class="label">estética principal del
+                            proyecto</span></div>
+                    <div class="stat"><span class="number">EA</span><span class="label">oportunidad de visibilidad en
+                            EVA 2026</span></div>
+                    <div class="stat"><span class="number">1</span><span class="label">perfil artístico clave a
+                            incorporar</span></div>
+                </div>
+            </section>
+
+            <section class="section" id="foda">
+                <div class="eyebrow">Diagnóstico interno y externo</div>
+                <h2>FODA del equipo</h2>
+                <p class="copy">El FODA permite ordenar las capacidades actuales del equipo, los espacios de oportunidad
+                    del mercado y los riesgos que deben gestionarse antes de escalar el desarrollo del juego.</p>
+
+                <div class="swot-grid">
+                    <article class="swot-card strength">
+                        <h3><span class="badge">F</span>Fortalezas</h3>
+                        <ul>
+                            <li>Equipo en sinergia.</li>
+                            <li>Pasión por los jueguitos.</li>
+                            <li>Buena comunicación interna.</li>
+                            <li>Adaptabilidad ante cambios de diseño y producción.</li>
+                            <li>Capacidad de programación dentro del equipo.</li>
+                        </ul>
+                    </article>
+
+                    <article class="swot-card opportunity">
+                        <h3><span class="badge">O</span>Oportunidades</h3>
+                        <ul>
+                            <li>Acceso a distribución global mediante plataformas digitales.</li>
+                            <li>Comunidades tech e indie abiertas a proyectos nuevos.</li>
+                            <li>Falta de juegos culturales sobre asado y parrilla argentina.</li>
+                            <li>EVA 2026 como espacio de exposición, networking y validación.</li>
+                            <li>Público argentino con alta identificación emocional con la temática.</li>
+                        </ul>
+                    </article>
+
+                    <article class="swot-card weakness">
+                        <h3><span class="badge">D</span>Debilidades</h3>
+                        <ul>
+                            <li>Escasez de artista especializado en pixel art dentro del equipo actual.</li>
+                            <li>Falta de experiencia específica en marketing de videojuegos.</li>
+                            <li>Dependencia de una persona clave para ciertas decisiones o tareas críticas.</li>
+                        </ul>
+                    </article>
+
+                    <article class="swot-card threat">
+                        <h3><span class="badge">A</span>Amenazas</h3>
+                        <ul>
+                            <li>Alta competencia por visibilidad en tiendas digitales.</li>
+                            <li>Riesgo de que la identidad cultural no se comunique correctamente al público
+                                internacional.</li>
+                            <li>Posible demora de producción si no se incorpora soporte artístico a tiempo.</li>
+                            <li>Limitaciones de presupuesto para campañas, assets y pulido visual.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="lectura">
+                <div class="eyebrow">Lectura estratégica</div>
+                <h2>Qué significa este FODA para Parrilla 40</h2>
+                <p class="copy">El proyecto parte de una ventaja clara: un equipo chico, comunicativo y adaptable, con
+                    pasión real por los videojuegos y capacidad de programación. Esa base permite avanzar rápido sobre
+                    mecánicas, prototipos y validaciones jugables.</p>
+
+                <div class="cards-3">
+                    <div class="card"><strong>Prioridad 1</strong><span>Incorporar un perfil artístico 2D / Pixel Art
+                            que eleve la identidad visual y reduzca el principal cuello de botella del equipo.</span>
+                    </div>
+                    <div class="card"><strong>Prioridad 2</strong><span>Construir una estrategia de comunicación
+                            temprana para no depender únicamente del lanzamiento final.</span></div>
+                    <div class="card"><strong>Prioridad 3</strong><span>Usar eventos como EVA 2026 para validar el
+                            diferencial cultural, conseguir feedback y generar contactos.</span></div>
+                </div>
+
+                <div class="callout">
+                    La debilidad artística detectada no invalida el proyecto; al contrario, ayuda a definir una
+                    necesidad concreta de contratación. El rol de Artista 2D Pixel Art funciona como una respuesta
+                    directa al FODA: mejora la legibilidad visual, potencia el humor argentino y refuerza el carácter
+                    comercial del vertical slice.
+                </div>
+            </section>
+
+            <section class="section" id="busqueda">
+                <div class="eyebrow">Búsqueda de empleo</div>
+                <h2>Artista 2D Pixel Art — Parrilla 40</h2>
+                <div class="job-header">
+                    <div>
+                        <p class="copy">Buscamos incorporar una persona especializada en pixel art para trabajar sobre
+                            los assets, escenarios, personajes, interfaces y efectos visuales principales del juego. El
+                            objetivo es consolidar una estética limpia, carismática y funcional para una simulación de
+                            cocina bajo presión.</p>
+                        <div class="tag-row">
+                            <span class="tag">Aseprite</span>
+                            <span class="tag">Spritesheets</span>
+                            <span class="tag">Unity</span>
+                            <span class="tag">UI funcional</span>
+                            <span class="tag">Humor argentino</span>
+                        </div>
+                    </div>
+                    <div class="quote-card">
+                        <p>Tu arte define el carisma del juego.</p>
+                        <span>El rol apunta a convertir la parrilla, los clientes y los sistemas de cocina en una
+                            experiencia visualmente clara, divertida y reconocible.</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="perfil">
+                <div class="eyebrow">Perfil requerido</div>
+                <h2>Saber, saber hacer, saber estar y querer hacer</h2>
+
+                <div class="role-grid">
+                    <article class="role-card">
+                        <span class="label">Saber · Tecnologías requeridas</span>
+                        <ul>
+                            <li>Dominio absoluto de Aseprite para la creación y animación de assets en pixel art.</li>
+                            <li>Experiencia exportando hojas de sprites optimizadas para integración en Unity
+                                2022.3.28f1.</li>
+                            <li>Entendimiento sólido de teoría del color, perspectiva y consistencia en paletas
+                                limitadas bajo estética retro arcade.</li>
+                            <li>Capacidad para trabajar con una combinación de vista top-down e híbrida por pantallas.
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="role-card">
+                        <span class="label">Saber hacer · Portfolio esperado</span>
+                        <ul>
+                            <li>Diseño de escenarios e interfaces funcionales.</li>
+                            <li>UI de parrillas basadas en grilla, hieleras y sistemas de armado similares a Resident
+                                Evil 4 o Papa's Pizzeria.</li>
+                            <li>Animación fluida cuadro a cuadro para clientes, reacciones y estados de satisfacción.
+                            </li>
+                            <li>Efectos dinámicos de cocina: humo, cocción, brasas, carbón y rotación tipo espejo de
+                                cortes de carne.</li>
+                            <li>Estilo visual limpio, carismático y con excelente legibilidad para mecánicas de gestión
+                                bajo presión.</li>
+                        </ul>
+                    </article>
+
+                    <article class="role-card">
+                        <span class="label">Saber estar · Cultura del rol</span>
+                        <ul>
+                            <li>Comunicación clara y sinergia con programadores y game designers.</li>
+                            <li>Capacidad para iterar de manera ágil el vertical slice del juego.</li>
+                            <li>Respeto por tiempos de entrega y metas del proyecto.</li>
+                            <li>Trabajo orientado a hitos clave como Alpha en julio 2026 y Beta en septiembre 2026.</li>
+                            <li>Proactividad para sumar humor y personalidad argentina a los diseños.</li>
+                        </ul>
+                    </article>
+
+                    <article class="role-card">
+                        <span class="label">Querer hacer · Fit motivacional</span>
+                        <ul>
+                            <li>Persona apasionada, detallista y motivada por sumarse al equipo de desarrollo.</li>
+                            <li>Interés en ver crecer el proyecto desde el MVP hasta el lanzamiento técnico.</li>
+                            <li>Entusiasmo por juegos de cocina, simulación y gestión caótica como Overcooked o Cook
+                                Serve Delicious.</li>
+                            <li>Ganas de integrarse a un espacio de co-creación donde el arte tenga impacto directo en
+                                la identidad del juego.</li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="herramientas">
+                <div class="eyebrow">Poder hacer</div>
+                <h2>Herramientas y condiciones a proveer</h2>
+                <p class="copy">Para que el rol pueda integrarse de forma rápida y efectiva, el equipo contempla brindar
+                    herramientas, documentación y una dinámica de trabajo flexible.</p>
+
+                <div class="cards-3">
+                    <div class="card"><strong>Licencia de Aseprite</strong><span>Licencia oficial disponible en caso de
+                            que la persona seleccionada la requiera.</span></div>
+                    <div class="card"><strong>Documentación completa</strong><span>Acceso al GDD, especificaciones
+                            técnicas de UI y guías de arte del proyecto.</span></div>
+                    <div class="card"><strong>Trabajo flexible</strong><span>Esquema remoto, amigable y orientado a
+                            objetivos de producción.</span></div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-content"><strong>Integración inicial</strong><span>Revisión del GDD,
+                                referencias visuales, necesidades de UI y prioridades del vertical slice.</span></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2</div>
+                        <div class="timeline-content"><strong>Producción de assets clave</strong><span>Parrilla,
+                                hielera, cortes de carne, carbones, clientes base, estados de cocción y feedback
+                                visual.</span></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">3</div>
+                        <div class="timeline-content"><strong>Iteración con gameplay</strong><span>Ajuste de
+                                legibilidad, tamaños, animaciones y consistencia visual junto al equipo técnico y de
+                                diseño.</span></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">4</div>
+                        <div class="timeline-content"><strong>Hitos de producción</strong><span>Enfoque en Alpha para
+                                julio 2026 y Beta para septiembre 2026.</span></div>
+                    </div>
+                </div>
+
+                <div class="callout">
+                    Además del trabajo remoto y flexible, el equipo busca sostener un espacio de integración: los
+                    viernes se propone cerrar la semana laboral con asadito, reforzando la cultura interna y la
+                    identidad del proyecto.
+                </div>
+            </section>
+
+            <section class="section" id="cierre">
+                <div class="eyebrow">Síntesis final</div>
+                <h2>Conclusión</h2>
+                <p class="copy">El equipo cuenta con una base sólida para desarrollar una simulación de gestión de
+                    cocina con identidad argentina: comunicación, adaptabilidad, pasión por los videojuegos y capacidad
+                    técnica. La incorporación de un artista 2D Pixel Art aparece como el paso estratégico más importante
+                    para resolver la principal debilidad detectada y transformar el prototipo en una experiencia
+                    visualmente atractiva, clara y comercialmente presentable.</p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Necesidad detectada</th>
+                                <th>Respuesta propuesta</th>
+                                <th>Impacto esperado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Escasez de artista pixel art.</td>
+                                <td>Contratar o sumar Artista 2D Pixel Art especializado en Aseprite y Unity.</td>
+                                <td>Mejor identidad visual, mayor legibilidad y vertical slice más defendible.</td>
+                            </tr>
+                            <tr>
+                                <td>Falta de experiencia en marketing.</td>
+                                <td>Preparar materiales visuales fuertes para redes, eventos y publisher pitch.</td>
+                                <td>Mejor comunicación del diferencial cultural y mayor potencial de visibilidad.</td>
+                            </tr>
+                            <tr>
+                                <td>Dependencia de persona clave.</td>
+                                <td>Distribuir responsabilidades y documentar procesos de arte, UI y producción.</td>
+                                <td>Menor riesgo operativo y mayor continuidad del desarrollo.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <p class="footer">Parrilla 40 · FODA del equipo y búsqueda de talento artístico · Documento visual para
+                presentación interna.</p>
+        </main>
+    </div>
+
+    <script>
+        const progress = document.getElementById('progress');
+        const navLinks = [...document.querySelectorAll('.side-nav a')];
+        const sections = navLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+
+        function onScroll() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.width = docHeight > 0 ? `${(scrollTop / docHeight) * 100}%` : '0%';
+
+            let current = sections[0]?.id;
+            for (const section of sections) {
+                const top = section.getBoundingClientRect().top + window.scrollY - 140;
+                if (scrollTop >= top) current = section.id;
+            }
+            navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    </script>
+</body>
+
+</html>

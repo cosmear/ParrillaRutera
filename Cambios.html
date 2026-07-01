@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cambios — Parrilla 40</title>
+    <style>
+        :root {
+            --bg: #120c09;
+            --bg-2: #20120b;
+            --cream: #fff0cf;
+            --muted: #d9b98a;
+            --orange: #ff8a24;
+            --red: #e7471d;
+            --yellow: #ffd166;
+            --green: #9fd356;
+            --dark: #080605;
+            --card: rgba(255, 240, 207, 0.08);
+            --card-strong: rgba(255, 240, 207, 0.14);
+            --stroke: rgba(255, 240, 207, 0.18);
+            --shadow: 0 24px 70px rgba(0, 0, 0, .45);
+            --radius: 28px;
+            --max: 1160px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--cream);
+            background:
+                radial-gradient(circle at 16% 8%, rgba(255, 138, 36, .26), transparent 28%),
+                radial-gradient(circle at 88% 12%, rgba(231, 71, 29, .22), transparent 24%),
+                radial-gradient(circle at 50% 100%, rgba(255, 209, 102, .12), transparent 38%),
+                linear-gradient(135deg, var(--bg), var(--bg-2) 45%, #090605);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .09;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+            background-size: 18px 18px;
+            mix-blend-mode: screen;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto 0 0 0;
+            height: 34vh;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 50% 100%, rgba(255, 138, 36, .30), transparent 55%),
+                linear-gradient(to top, rgba(8, 6, 5, .80), transparent);
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 18px;
+            z-index: 50;
+            width: min(var(--max), calc(100% - 28px));
+            margin: 18px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 12px 10px 16px;
+            background: rgba(8, 6, 5, .62);
+            border: 1px solid var(--stroke);
+            border-radius: 999px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            box-shadow: 0 0 28px rgba(255, 138, 36, .45);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            background: var(--dark);
+            border-radius: 3px;
+        }
+
+        .brand-mark::before {
+            width: 18px;
+            height: 4px;
+            left: 6px;
+            top: 8px;
+            box-shadow: 0 7px 0 var(--dark), 0 14px 0 var(--dark);
+        }
+
+        .brand-mark::after {
+            width: 4px;
+            height: 18px;
+            top: 6px;
+            left: 8px;
+            box-shadow: 7px 0 0 var(--dark), 14px 0 0 var(--dark);
+            opacity: .42;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav a,
+        .print-btn {
+            font-size: 12px;
+            color: rgba(255, 240, 207, .78);
+            padding: 8px 11px;
+            border-radius: 999px;
+            transition: .2s ease;
+            font-weight: 800;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .nav a:hover,
+        .print-btn:hover {
+            color: var(--dark);
+            background: var(--yellow);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            width: min(var(--max), calc(100% - 34px));
+            margin: 0 auto;
+        }
+
+        .hero {
+            min-height: 76vh;
+            display: grid;
+            align-items: center;
+            padding: clamp(70px, 9vw, 120px) 0 clamp(46px, 7vw, 90px);
+            position: relative;
+        }
+
+        .hero-card,
+        .section-card {
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03)),
+                rgba(8, 6, 5, .42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-card {
+            min-height: 560px;
+            padding: clamp(30px, 5vw, 66px);
+            display: grid;
+            align-content: center;
+            gap: 24px;
+        }
+
+        .hero-card::before,
+        .section-card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background:
+                radial-gradient(circle at 18% 12%, rgba(255, 209, 102, .18), transparent 28%),
+                radial-gradient(circle at 82% 86%, rgba(231, 71, 29, .16), transparent 28%);
+            z-index: -1;
+            opacity: .9;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: 10px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            border: 1px solid rgba(255, 138, 36, .28);
+            color: var(--yellow);
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: clamp(56px, 10vw, 132px);
+            line-height: .84;
+            letter-spacing: -.08em;
+            text-transform: uppercase;
+            text-shadow: 0 12px 38px rgba(0, 0, 0, .45);
+            max-width: 970px;
+        }
+
+        h2 {
+            font-size: clamp(35px, 5.2vw, 74px);
+            line-height: .94;
+            letter-spacing: -.06em;
+            text-transform: uppercase;
+            max-width: 1000px;
+        }
+
+        h3 {
+            font-size: clamp(22px, 3vw, 34px);
+            letter-spacing: -.03em;
+        }
+
+        .lead {
+            font-size: clamp(18px, 2.2vw, 28px);
+            line-height: 1.18;
+            color: rgba(255, 240, 207, .84);
+            max-width: 880px;
+            font-weight: 650;
+        }
+
+        .tagline {
+            font-size: clamp(23px, 3vw, 42px);
+            font-weight: 950;
+            line-height: 1.02;
+            color: var(--yellow);
+            max-width: 850px;
+        }
+
+        .hero-note {
+            color: rgba(255, 240, 207, .62);
+            font-size: 14px;
+            font-weight: 750;
+        }
+
+        .hero-art {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            opacity: .92;
+            pointer-events: none;
+        }
+
+        .hero-art::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(8, 6, 5, .94) 0%, rgba(8, 6, 5, .72) 48%, rgba(8, 6, 5, .28)),
+                radial-gradient(circle at 75% 54%, rgba(255, 138, 36, .35), transparent 34%);
+            z-index: 2;
+        }
+
+        .road {
+            position: absolute;
+            width: 120%;
+            height: 42%;
+            left: -10%;
+            bottom: -12%;
+            transform: perspective(520px) rotateX(58deg);
+            background:
+                linear-gradient(90deg, transparent 48%, rgba(255, 240, 207, .42) 49%, transparent 50%, rgba(255, 240, 207, .42) 51%, transparent 52%),
+                repeating-linear-gradient(90deg, #16100d 0 84px, #1e1510 84px 168px);
+            border-top: 7px solid rgba(255, 240, 207, .18);
+            animation: roadMove 1.2s linear infinite;
+        }
+
+        @keyframes roadMove {
+            from {
+                background-position: 0 0, 0 0;
+            }
+
+            to {
+                background-position: 0 70px, 168px 0;
+            }
+        }
+
+        .parrilla {
+            position: absolute;
+            right: 5%;
+            bottom: 12%;
+            width: clamp(260px, 36vw, 540px);
+            aspect-ratio: 1.2 / .75;
+            border-radius: 30px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .16), transparent 20%), #20130e;
+            border: 5px solid rgba(255, 240, 207, .18);
+            box-shadow: inset 0 -22px 30px rgba(0, 0, 0, .35), 0 30px 80px rgba(0, 0, 0, .55);
+            transform: rotate(-3deg);
+        }
+
+        .parrilla::before {
+            content: "";
+            position: absolute;
+            inset: 18px;
+            border-radius: 20px;
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 240, 207, .58) 0 5px, transparent 5px 28px),
+                radial-gradient(circle at 20% 70%, #ffcf66 0 7px, #e7471d 8px 18px, transparent 19px),
+                radial-gradient(circle at 58% 58%, #ffcf66 0 8px, #e7471d 9px 22px, transparent 23px),
+                radial-gradient(circle at 80% 78%, #ffcf66 0 6px, #e7471d 7px 16px, transparent 17px),
+                #120c09;
+            animation: emberPulse 1.6s ease-in-out infinite alternate;
+        }
+
+        .parrilla::after {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 54px;
+            left: 55%;
+            top: 28%;
+            border-radius: 44% 56% 52% 48%;
+            background: linear-gradient(135deg, #7a2d16, #d9652c);
+            box-shadow: -130px 16px 0 -6px #cc5128, -70px -4px 0 -12px #a53a20;
+            transform: rotate(8deg);
+        }
+
+        @keyframes emberPulse {
+            from {
+                filter: brightness(.92) saturate(1.1);
+            }
+
+            to {
+                filter: brightness(1.3) saturate(1.5);
+            }
+        }
+
+        .hero-art .pitch-grill {
+            z-index: 1;
+        }
+
+        .pitch-grill-wrap {
+            position: relative;
+            width: min(820px, 100%);
+            margin: 0 auto;
+            filter: drop-shadow(0 34px 34px rgba(0, 0, 0, .42));
+        }
+
+        .pitch-grill-wrap.compact {
+            position: absolute;
+            right: clamp(18px, 4vw, 64px);
+            bottom: clamp(56px, 8vw, 110px);
+            width: clamp(330px, 43vw, 640px);
+            transform: rotate(-4deg);
+        }
+
+        .pitch-grill {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1000 / 560;
+            background: #101010;
+            border: clamp(6px, .9vw, 10px) solid #3a3a3a;
+            box-shadow:
+                inset 0 0 0 5px #070707,
+                inset 0 0 0 18px #202020,
+                0 20px 0 rgba(0, 0, 0, .46),
+                0 32px 80px rgba(0, 0, 0, .48);
+            overflow: hidden;
+            border-radius: 10px;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+        }
+
+        .grill-coals,
+        .grill-coal-texture,
+        .grill-heat-glow,
+        .grill-grate-vertical,
+        .grill-grate-horizontal,
+        .grill-frame-inner,
+        .grill-edge-shadow,
+        .png-layer {
+            position: absolute;
+            inset: 5%;
+        }
+
+        .grill-coals {
+            background:
+                radial-gradient(circle at 10% 20%, #ffd75d 0 8px, #f06422 9px 18px, transparent 19px),
+                radial-gradient(circle at 22% 72%, #ffab30 0 10px, #c93417 11px 21px, transparent 22px),
+                radial-gradient(circle at 39% 38%, #ffd95d 0 10px, #ef5b21 11px 22px, transparent 23px),
+                radial-gradient(circle at 57% 75%, #ff982d 0 12px, #cf3518 13px 24px, transparent 25px),
+                radial-gradient(circle at 74% 25%, #ffca52 0 9px, #e84e1d 10px 19px, transparent 20px),
+                radial-gradient(circle at 88% 62%, #ffb238 0 11px, #b92b15 12px 25px, transparent 26px),
+                #18110e;
+            z-index: 1;
+        }
+
+        .grill-coal-texture {
+            background-image:
+                linear-gradient(90deg, rgba(255, 90, 26, .28) 8px, transparent 8px),
+                linear-gradient(rgba(255, 188, 55, .18) 7px, transparent 7px),
+                linear-gradient(45deg, rgba(0, 0, 0, .22) 10px, transparent 10px);
+            background-size: 38px 31px, 44px 36px, 50px 50px;
+            opacity: .75;
+            z-index: 2;
+            animation: grillEmberFlicker .9s infinite steps(2);
+        }
+
+        .grill-heat-glow {
+            z-index: 3;
+            background:
+                radial-gradient(circle at 50% 58%, rgba(255, 92, 22, .22), transparent 38%),
+                radial-gradient(circle at 80% 35%, rgba(255, 192, 58, .14), transparent 28%),
+                radial-gradient(circle at 20% 72%, rgba(255, 115, 25, .12), transparent 28%);
+            mix-blend-mode: screen;
+            animation: grillHeatPulse 1.5s infinite alternate;
+        }
+
+        .grill-flame {
+            position: absolute;
+            width: 1.8%;
+            height: 6.4%;
+            background: #ff5a1f;
+            box-shadow:
+                0 -12px 0 #ffd45a,
+                9px 8px 0 #c92d17,
+                -9px 12px 0 #e4451d;
+            opacity: .7;
+            z-index: 4;
+            animation: grillFlameMove .25s infinite alternate steps(2);
+        }
+
+        .grill-grate-vertical {
+            background:
+                repeating-linear-gradient(90deg,
+                    transparent 0 25px,
+                    #050505 25px 31px,
+                    #707070 31px 35px,
+                    #181818 35px 42px);
+            opacity: .96;
+            z-index: 7;
+            pointer-events: none;
+        }
+
+        .grill-grate-horizontal {
+            background:
+                repeating-linear-gradient(0deg,
+                    transparent 0 58px,
+                    #050505 58px 64px,
+                    #5e5e5e 64px 68px,
+                    #151515 68px 75px);
+            opacity: .78;
+            z-index: 8;
+            pointer-events: none;
+        }
+
+        .grill-frame-inner {
+            border: 5px solid #050505;
+            box-shadow:
+                inset 0 0 0 4px #2b2b2b,
+                inset 0 0 30px rgba(0, 0, 0, .7);
+            z-index: 9;
+            pointer-events: none;
+        }
+
+        .png-layer {
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .meat-png {
+            position: absolute;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            filter: drop-shadow(5px 8px 0 rgba(0, 0, 0, .45));
+        }
+
+        .meat-png.chorizo {
+            left: 8%;
+            top: 18%;
+            width: 18%;
+            transform: rotate(-9deg);
+        }
+
+        .meat-png.tira {
+            left: 36%;
+            top: 16%;
+            width: 19%;
+            transform: rotate(12deg);
+        }
+
+        .meat-png.vacio {
+            left: 62%;
+            top: 45%;
+            width: 25%;
+            transform: rotate(-7deg);
+        }
+
+        .meat-png.chorizo.extra {
+            left: 18%;
+            top: 60%;
+            width: 16%;
+            transform: rotate(11deg);
+        }
+
+        .grill-smoke {
+            position: absolute;
+            width: 2.4%;
+            aspect-ratio: 1;
+            background: rgba(210, 210, 200, .32);
+            box-shadow:
+                22px -16px rgba(230, 230, 220, .24),
+                48px -34px rgba(200, 200, 190, .18);
+            z-index: 13;
+            animation: grillSmokeMove 2.7s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .grill-edge-shadow {
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(0, 0, 0, .55), transparent 10%, transparent 90%, rgba(0, 0, 0, .55)),
+                linear-gradient(to bottom, rgba(0, 0, 0, .55), transparent 12%, transparent 88%, rgba(0, 0, 0, .6));
+            z-index: 14;
+            pointer-events: none;
+        }
+
+        @keyframes grillEmberFlicker {
+
+            0%,
+            100% {
+                opacity: .45;
+                filter: brightness(1);
+            }
+
+            50% {
+                opacity: .85;
+                filter: brightness(1.35);
+            }
+        }
+
+        @keyframes grillHeatPulse {
+            from {
+                opacity: .45;
+            }
+
+            to {
+                opacity: .78;
+            }
+        }
+
+        @keyframes grillFlameMove {
+            from {
+                transform: scaleY(1) translateY(0);
+                opacity: .55;
+            }
+
+            to {
+                transform: scaleY(1.25) translateY(-4px);
+                opacity: .9;
+            }
+        }
+
+        @keyframes grillSmokeMove {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: .35;
+            }
+
+            100% {
+                transform: translate(34px, -58px);
+                opacity: 0;
+            }
+        }
+
+        section {
+            scroll-margin-top: 110px;
+        }
+
+        .section-card {
+            margin: 0 0 26px;
+            padding: clamp(26px, 4.2vw, 54px);
+            display: grid;
+            gap: 24px;
+        }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .grid.cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid.cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .grid.cols-4 {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .card {
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: var(--card);
+            padding: 22px;
+            min-height: 146px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -44px;
+            top: -44px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            filter: blur(2px);
+        }
+
+        .card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 17px;
+            margin-bottom: 9px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card span,
+        .card p,
+        li {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.38;
+            font-size: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .budget-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .budget-panel {
+            border-radius: 30px;
+            padding: clamp(24px, 3.8vw, 42px);
+            border: 1px solid rgba(255, 240, 207, .16);
+            background: rgba(255, 255, 255, .06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .budget-panel.old {
+            background: linear-gradient(135deg, rgba(255, 240, 207, .10), rgba(255, 255, 255, .04));
+        }
+
+        .budget-panel.new {
+            background: linear-gradient(135deg, rgba(159, 211, 86, .18), rgba(255, 209, 102, .10));
+            border-color: rgba(159, 211, 86, .36);
+            box-shadow: 0 0 44px rgba(159, 211, 86, .10);
+        }
+
+        .label {
+            display: inline-flex;
+            padding: 8px 11px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 240, 207, .16);
+            color: rgba(255, 240, 207, .74);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .budget-number {
+            display: block;
+            font-size: clamp(56px, 7.5vw, 106px);
+            line-height: .82;
+            letter-spacing: -.08em;
+            font-weight: 950;
+            color: var(--cream);
+            margin-bottom: 16px;
+        }
+
+        .budget-panel.new .budget-number {
+            color: var(--green);
+        }
+
+        .budget-list {
+            display: grid;
+            gap: 10px;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .budget-list li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 11px 12px;
+            border: 1px solid rgba(255, 240, 207, .12);
+            border-radius: 16px;
+            background: rgba(8, 6, 5, .22);
+        }
+
+        .budget-list li::before {
+            content: "•";
+            color: var(--yellow);
+            font-weight: 950;
+            line-height: 1;
+            font-size: 22px;
+            margin-top: -1px;
+        }
+
+        .delta-bar {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 18px;
+            align-items: center;
+            border-radius: 26px;
+            border: 1px solid rgba(159, 211, 86, .34);
+            background: linear-gradient(135deg, rgba(159, 211, 86, .18), rgba(255, 138, 36, .08));
+            padding: clamp(22px, 3vw, 32px);
+        }
+
+        .delta-bar strong {
+            color: var(--green);
+            display: block;
+            font-size: clamp(30px, 4.4vw, 58px);
+            line-height: .95;
+            letter-spacing: -.05em;
+            margin-bottom: 8px;
+        }
+
+        .delta-bar span {
+            color: rgba(255, 240, 207, .82);
+            font-weight: 800;
+            line-height: 1.28;
+        }
+
+        .delta-badge {
+            width: 156px;
+            height: 156px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            background: var(--green);
+            color: var(--dark);
+            font-weight: 950;
+            box-shadow: 0 0 36px rgba(159, 211, 86, .34);
+            padding: 18px;
+            line-height: 1.05;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid var(--stroke);
+            background: rgba(255, 255, 255, .06);
+            font-size: 15px;
+        }
+
+        th,
+        td {
+            padding: 15px 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 240, 207, .10);
+            color: rgba(255, 240, 207, .80);
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--yellow);
+            background: rgba(255, 138, 36, .12);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr.highlight td {
+            background: rgba(159, 211, 86, .13);
+            color: var(--cream);
+            font-weight: 850;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            border: 1px solid rgba(255, 240, 207, .20);
+            background: rgba(255, 255, 255, .08);
+            color: rgba(255, 240, 207, .82);
+            padding: 11px 14px;
+            border-radius: 999px;
+            font-weight: 850;
+            font-size: 14px;
+        }
+
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .gif-card {
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: rgba(255, 240, 207, .07);
+            overflow: hidden;
+            box-shadow: 0 18px 42px rgba(0, 0, 0, .22);
+        }
+
+        .gif-frame {
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: rgba(8, 6, 5, .45);
+            clip-path: inset(0 round 24px 24px 0 0);
+        }
+
+        .gif-frame img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .gif-caption {
+            padding: 16px;
+            display: grid;
+            gap: 6px;
+        }
+
+        .gif-caption strong {
+            color: var(--yellow);
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            font-size: 14px;
+        }
+
+        .gif-caption span {
+            color: rgba(255, 240, 207, .76);
+            line-height: 1.35;
+            font-size: 15px;
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 14px;
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 7%;
+            right: 7%;
+            top: 50px;
+            height: 6px;
+            background: linear-gradient(90deg, rgba(255, 209, 102, .28), rgba(255, 138, 36, .76), rgba(231, 71, 29, .62));
+            border-radius: 999px;
+            z-index: 0;
+        }
+
+        .milestone {
+            position: relative;
+            z-index: 1;
+            min-height: 184px;
+            padding: 88px 14px 18px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 240, 207, .14);
+            background: linear-gradient(180deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .035)), rgba(8, 6, 5, .58);
+            box-shadow: 0 18px 36px rgba(0, 0, 0, .22);
+            overflow: hidden;
+        }
+
+        .milestone::before {
+            content: attr(data-phase);
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 54px;
+            height: 54px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: var(--dark);
+            border: 6px solid var(--yellow);
+            color: var(--yellow);
+            font-size: 13px;
+            font-weight: 950;
+            box-shadow: 0 0 24px rgba(255, 209, 102, .45);
+        }
+
+        .milestone strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 20px;
+            line-height: 1.04;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .milestone span {
+            color: rgba(255, 240, 207, .72);
+            font-weight: 750;
+            display: block;
+            text-align: center;
+            line-height: 1.32;
+        }
+
+        .footer {
+            padding: 24px 0 48px;
+            color: rgba(255, 240, 207, .54);
+            font-size: 13px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 920px) {
+            .topbar {
+                align-items: flex-start;
+                border-radius: 24px;
+                flex-direction: column;
+            }
+
+            .nav {
+                justify-content: flex-start;
+            }
+
+            .hero {
+                min-height: auto;
+            }
+
+            .hero-card {
+                min-height: 560px;
+            }
+
+            .parrilla {
+                opacity: .30;
+                right: -18%;
+                bottom: 8%;
+            }
+
+            .pitch-grill-wrap.compact {
+                opacity: .38;
+                right: -18%;
+                bottom: 12%;
+                width: clamp(340px, 90vw, 620px);
+            }
+
+            .grid.cols-2,
+            .grid.cols-3,
+            .grid.cols-4,
+            .gif-grid,
+            .budget-compare,
+            .delta-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .delta-badge {
+                width: 126px;
+                height: 126px;
+                justify-self: start;
+            }
+
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .milestone {
+                min-height: auto;
+                padding: 18px 18px 18px 70px;
+            }
+
+            .milestone::before {
+                left: 32px;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 32px;
+                height: 32px;
+                border-width: 5px;
+            }
+
+            .milestone strong,
+            .milestone span {
+                text-align: left;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+
+        @media (max-width: 640px) {
+            main {
+                width: calc(100% - 24px);
+            }
+
+            .hero-card,
+            .section-card {
+                padding: 26px 16px;
+                border-radius: 22px;
+            }
+
+            h1 {
+                font-size: 39px;
+                line-height: .9;
+                letter-spacing: -.035em;
+            }
+
+            h2 {
+                font-size: 36px;
+                line-height: .96;
+                letter-spacing: -.045em;
+            }
+
+            .tagline,
+            .lead {
+                font-size: 15.5px;
+                line-height: 1.22;
+                max-width: 26ch;
+                overflow-wrap: break-word;
+            }
+
+            .hero-note {
+                font-size: 12px;
+                max-width: 28ch;
+                line-height: 1.25;
+            }
+
+            .budget-number {
+                font-size: 48px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #120c09;
+            }
+
+            .topbar,
+            .hero-art,
+            body::before,
+            body::after {
+                display: none !important;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 0 0 20px;
+            }
+
+            .hero-card,
+            .section-card {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            section {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <a class="brand" href="#inicio" aria-label="Ir al inicio">
+            <span class="brand-mark"></span>
+            <span>Cambios · Parrilla 40</span>
+        </a>
+        <nav class="nav" aria-label="Navegación principal">
+            <a href="index.html">Index</a>
+            <a href="#presupuesto">Presupuesto</a>
+            <a href="#marketing">Marketing</a>
+            <a href="#early-access">Early Access</a>
+            <button class="print-btn" onclick="window.print()">Imprimir / PDF</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="inicio">
+            <div class="hero-card">
+                <div class="hero-art" aria-hidden="true">
+                    <div class="road"></div>
+                    <div class="pitch-grill-wrap compact">
+                        <div class="pitch-grill" aria-label="Parrilla top-down con capa para PNGs">
+                            <div class="grill-coals"></div>
+                            <div class="grill-coal-texture"></div>
+                            <div class="grill-heat-glow"></div>
+                            <div class="grill-flame" style="left: 18%; top: 59%;"></div>
+                            <div class="grill-flame" style="left: 43%; top: 33%;"></div>
+                            <div class="grill-flame" style="left: 69%; top: 64%;"></div>
+                            <div class="grill-flame" style="left: 83%; top: 26%;"></div>
+                            <div class="grill-grate-vertical"></div>
+                            <div class="grill-grate-horizontal"></div>
+                            <div class="grill-frame-inner"></div>
+                            <div class="png-layer">
+                                <img src="assets/Chorizo%20Hecho.png" class="meat-png chorizo" alt="Chorizo hecho" />
+                                <img src="assets/Tira%20de%20Asado%20Hecha.png" class="meat-png tira"
+                                    alt="Tira de asado hecha" />
+                                <img src="assets/Vacio%20Hecho.png" class="meat-png vacio" alt="Vacio hecho" />
+                                <img src="assets/Chorizo%20Hecho.png" class="meat-png chorizo extra"
+                                    alt="Chorizo hecho" />
+                            </div>
+                            <div class="grill-smoke" style="left: 26%; top: 21%;"></div>
+                            <div class="grill-smoke" style="left: 58%; top: 13%; animation-delay: .7s;"></div>
+                            <div class="grill-smoke" style="left: 79%; top: 46%; animation-delay: 1.2s;"></div>
+                            <div class="grill-edge-shadow"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eyebrow">Resumen de cambios</div>
+                <h1>Cambios clave</h1>
+                <p class="tagline">Nuevo presupuesto, contratación de un artista 2D adicional, campañas de marketing y
+                    plan de Early Access.</p>
+                <p class="lead">Este documento resume los cambios más importantes para actualizar el pitch de Parrilla
+                    40 de forma clara y defendible frente a un publisher o inversor.</p>
+                <p class="hero-note">Versión preparada para lectura rápida, presentación e impresión.</p>
+            </div>
+        </section>
+
+        <section id="presupuesto" class="section-card">
+            <div class="eyebrow">01 · Presupuesto</div>
+            <h2>Presupuesto nuevo vs presupuesto viejo</h2>
+            <p class="lead">El cambio central es la incorporación de un artista 2D adicional. Esto aumenta el equipo,
+                acelera la producción visual y reduce el riesgo detectado de escasez artística.</p>
+
+            <div class="budget-compare">
+                <article class="budget-panel old">
+                    <span class="label">Presupuesto anterior</span>
+                    <strong class="budget-number">USD 118.000</strong>
+                    <ul class="budget-list">
+                        <li>Ask total anterior del proyecto.</li>
+                        <li>Presupuesto de desarrollo: <strong>USD 89.000</strong>.</li>
+                        <li>Equipo base de producción: <strong>6 integrantes</strong>.</li>
+                        <li>Arte 2D cubierto por una sola persona.</li>
+                    </ul>
+                </article>
+
+                <article class="budget-panel new">
+                    <span class="label">Presupuesto actualizado</span>
+                    <strong class="budget-number">USD 133.000</strong>
+                    <ul class="budget-list">
+                        <li>Ask total actualizado del proyecto.</li>
+                        <li>Presupuesto de desarrollo: <strong>USD 104.000</strong>.</li>
+                        <li>Equipo ampliado: <strong>7 integrantes</strong>.</li>
+                        <li>Se contrata un <strong>artista 2D adicional</strong>.</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="delta-bar">
+                <div>
+                    <strong>Incremento total: +USD 15.000</strong>
+                    <span>El aumento surge de sumar un artista 2D más. La estimación usa la lógica del presupuesto
+                        existente: costo promedio implícito del equipo de producción, redondeado a USD 15.000.</span>
+                </div>
+                <div class="delta-badge">+1 artista<br>2D</div>
+            </div>
+
+            <table aria-label="Comparación de presupuesto anterior y nuevo">
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th>Antes</th>
+                        <th>Ahora</th>
+                        <th>Cambio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ask total</td>
+                        <td>USD 118.000</td>
+                        <td>USD 133.000</td>
+                        <td>+USD 15.000</td>
+                    </tr>
+                    <tr>
+                        <td>Presupuesto de desarrollo</td>
+                        <td>USD 89.000</td>
+                        <td>USD 104.000</td>
+                        <td>+USD 15.000</td>
+                    </tr>
+                    <tr>
+                        <td>Equipo</td>
+                        <td>6 integrantes</td>
+                        <td>7 integrantes</td>
+                        <td>+1 integrante</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td>Arte 2D</td>
+                        <td>1 artista 2D</td>
+                        <td>2 artistas 2D</td>
+                        <td>Se refuerza producción visual, assets, animaciones y UI</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid cols-3">
+                <article class="card">
+                    <strong>Por qué se justifica</strong>
+                    <span>El proyecto depende mucho de la legibilidad visual: cortes, estados de cocción, humo, brasas,
+                        clientes, pedidos y UI bajo presión.</span>
+                </article>
+                <article class="card">
+                    <strong>Qué riesgo reduce</strong>
+                    <span>Reduce la dependencia de una sola persona para arte y baja el riesgo de atrasos en assets,
+                        animaciones y polish visual.</span>
+                </article>
+                <article class="card">
+                    <strong>Qué mejora</strong>
+                    <span>Permite llegar al Early Access con más variedad, mejor feedback visual y una identidad
+                        argentina más consistente.</span>
+                </article>
+            </div>
+        </section>
+
+        <section id="marketing" class="section-card">
+            <div class="eyebrow">02 · Estrategias de marketing</div>
+            <h2>El asado también se vende fuera de Steam</h2>
+            <p class="lead">La estrategia convierte la identidad argentina del juego en adquisición: delivery, creadores
+                de asado, contenido corto y comunidad. El objetivo es empujar wishlist, demo y compra durante Early
+                Access.</p>
+
+            <div class="grid cols-4">
+                <article class="card">
+                    <strong>PedidosYa + Rappi</strong>
+                    <span>Campaña con parrillas adheridas: QR en bolsas, flyers y combos temáticos. El tráfico se dirige
+                        a Steam, demo y sorteo de claves.</span>
+                </article>
+                <article class="card">
+                    <strong>Creadores de asado</strong>
+                    <span>Pauta y contenido con Locos por el Asado, Roberto Galati y Agustín Crevy. Gancho: “¿podés
+                        manejar una parrilla en hora pico?”.</span>
+                </article>
+                <article class="card">
+                    <strong>YouTube + streaming</strong>
+                    <span>Menciones, pre-rolls y segmentos en canales de asado, cocina y humor argentino, con foco en
+                        wishlist y descarga de demo.</span>
+                </article>
+                <article class="card">
+                    <strong>UGC de comunidad</strong>
+                    <span>Retos semanales: pedido imposible, corte perfecto y carbón justo. Clips para TikTok, Reels y
+                        Shorts con llamados a Steam.</span>
+                </article>
+            </div>
+
+            <table aria-label="Plan de marketing por canal">
+                <thead>
+                    <tr>
+                        <th>Canal</th>
+                        <th>Acción</th>
+                        <th>Objetivo</th>
+                        <th>Métrica</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Delivery</td>
+                        <td>QR en pedidos de parrillas, flyers y combos temáticos</td>
+                        <td>Llevar público no gamer hacia Steam</td>
+                        <td>Escaneos, visitas, wishlists, descargas de demo</td>
+                    </tr>
+                    <tr>
+                        <td>Creadores de asado</td>
+                        <td>Videos dedicados, menciones y desafíos</td>
+                        <td>Validar culturalmente el juego</td>
+                        <td>Views, CTR, wishlists, comentarios</td>
+                    </tr>
+                    <tr>
+                        <td>YouTube / streaming</td>
+                        <td>Pre-rolls, segmentos y gameplay</td>
+                        <td>Mostrar el loop de juego en acción</td>
+                        <td>Retención, clics a Steam, conversión demo</td>
+                    </tr>
+                    <tr>
+                        <td>TikTok / Reels / Shorts</td>
+                        <td>Clips cortos de caos, humor y errores de cocina</td>
+                        <td>Alcance orgánico y viralidad</td>
+                        <td>Compartidos, guardados, visitas al perfil</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pill-row">
+                <span class="pill">PedidosYa</span>
+                <span class="pill">Rappi</span>
+                <span class="pill">Locos por el Asado</span>
+                <span class="pill">Roberto Galati</span>
+                <span class="pill">Agustín Crevy</span>
+                <span class="pill">Steam Wishlist</span>
+                <span class="pill">Demo gratuita</span>
+            </div>
+
+            <div class="gif-grid" aria-label="Clips animados del build">
+                <article class="gif-card">
+                    <div class="gif-frame">
+                        <img src="assets/Gif-parrilla.gif" alt="Clip animado de la parrilla en juego" />
+                    </div>
+                    <div class="gif-caption">
+                        <strong>Parrilla</strong>
+                        <span>Clip de gameplay para mostrar el ritmo de cocina y lectura visual.</span>
+                    </div>
+                </article>
+                <article class="gif-card">
+                    <div class="gif-frame">
+                        <img src="assets/Gif-frezeer.gif" alt="Clip animado del freezer del juego" />
+                    </div>
+                    <div class="gif-caption">
+                        <strong>Freezer</strong>
+                        <span>Clip recortado para mostrar gestion de stock y preparacion.</span>
+                    </div>
+                </article>
+                <article class="gif-card">
+                    <div class="gif-frame">
+                        <img src="assets/Gif-Build.gif" alt="Clip animado de la build de Parrilla 40" />
+                    </div>
+                    <div class="gif-caption">
+                        <strong>Build</strong>
+                        <span>Recorte animado del estado jugable actual para acompanar el pitch.</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="early-access" class="section-card">
+            <div class="eyebrow">03 · Hitos Early Access</div>
+            <h2>Entrar, medir, ajustar y escalar</h2>
+            <p class="lead">Early Access funciona como etapa comercial y de validación. La prioridad es lanzar estable,
+                medir el comportamiento real de la comunidad y usar los updates para llegar a la versión 1.0 con mayor
+                retención.</p>
+
+            <div class="timeline">
+                <article class="milestone" data-phase="01">
+                    <strong>Wishlist Push</strong>
+                    <span>6 semanas antes: Steam, demo, QR delivery y creadores.</span>
+                </article>
+                <article class="milestone" data-phase="02">
+                    <strong>Launch EA</strong>
+                    <span>Q1 2027: versión estable, precio USD 8–12 y feedback abierto.</span>
+                </article>
+                <article class="milestone" data-phase="03">
+                    <strong>Balance Patch</strong>
+                    <span>Mes 1: calor, tiempos de cocción, clientes y economía.</span>
+                </article>
+                <article class="milestone" data-phase="04">
+                    <strong>Community Update</strong>
+                    <span>Meses 2–3: nuevos clientes, cortes, logros y mejoras UI.</span>
+                </article>
+                <article class="milestone" data-phase="05">
+                    <strong>Creator Beat</strong>
+                    <span>Meses 3–4: desafío con creadores, clips y empuje comercial.</span>
+                </article>
+            </div>
+
+            <div class="grid cols-3">
+                <article class="card">
+                    <strong>Métricas clave</strong>
+                    <span>Wishlists, conversión demo → compra, reseñas Steam, retención de jugadores, actividad en
+                        Discord y feedback cualitativo.</span>
+                </article>
+                <article class="card">
+                    <strong>Decisiones de producto</strong>
+                    <span>Priorizar updates según dolor real: curva de dificultad, claridad del fuego, ritmo de pedidos,
+                        economía y UI.</span>
+                </article>
+                <article class="card">
+                    <strong>Puente a 1.0</strong>
+                    <span>Usar Early Access para validar contenido, mejorar balance y construir una comunidad activa
+                        antes del lanzamiento completo.</span>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        Parrilla 40 · Documento de cambios · Presupuesto, marketing y Early Access
+    </footer>
+</body>
+
+</html>

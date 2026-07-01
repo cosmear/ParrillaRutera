@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FECOFESI S.R.L. — Estatuto Societario</title>
+    <style>
+        :root {
+            --bg: #120c09;
+            --bg-2: #20120b;
+            --cream: #fff0cf;
+            --muted: #d9b98a;
+            --orange: #ff8a24;
+            --red: #e7471d;
+            --yellow: #ffd166;
+            --green: #9fd356;
+            --dark: #080605;
+            --card: rgba(255, 240, 207, 0.08);
+            --card-strong: rgba(255, 240, 207, 0.14);
+            --stroke: rgba(255, 240, 207, 0.18);
+            --stroke-strong: rgba(255, 209, 102, 0.34);
+            --shadow: 0 24px 70px rgba(0, 0, 0, .45);
+            --radius: 28px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--cream);
+            background:
+                radial-gradient(circle at 14% 4%, rgba(255, 138, 36, .27), transparent 26%),
+                radial-gradient(circle at 88% 10%, rgba(231, 71, 29, .20), transparent 23%),
+                linear-gradient(135deg, var(--bg), var(--bg-2) 43%, #090605);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .10;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent 1px);
+            background-size: 18px 18px;
+            mix-blend-mode: screen;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: auto 0 0 0;
+            height: 32vh;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 50% 100%, rgba(255, 138, 36, .25), transparent 60%), linear-gradient(to top, rgba(8, 6, 5, .82), transparent);
+            z-index: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 4px;
+            width: 0%;
+            z-index: 200;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
+            box-shadow: 0 0 22px rgba(255, 138, 36, .8);
+        }
+
+        .topbar {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(1180px, calc(100% - 28px));
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 12px 10px 16px;
+            background: rgba(8, 6, 5, .60);
+            border: 1px solid var(--stroke);
+            border-radius: 999px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: linear-gradient(135deg, var(--orange), var(--red));
+            box-shadow: 0 0 28px rgba(255, 138, 36, .45);
+            position: relative;
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            background: var(--dark);
+            border-radius: 3px;
+        }
+
+        .brand-mark::before {
+            width: 18px;
+            height: 4px;
+            left: 6px;
+            top: 8px;
+            box-shadow: 0 7px 0 var(--dark), 0 14px 0 var(--dark);
+        }
+
+        .brand-mark::after {
+            width: 4px;
+            height: 18px;
+            top: 6px;
+            left: 8px;
+            box-shadow: 7px 0 0 var(--dark), 14px 0 0 var(--dark);
+            opacity: .42;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .pill-btn {
+            border: 1px solid var(--stroke);
+            color: var(--cream);
+            background: rgba(255, 255, 255, .06);
+            padding: 10px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 800;
+            transition: .18s ease;
+        }
+
+        .pill-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, .14);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 118px 22px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            width: min(1180px, 100%);
+            min-height: min(720px, calc(100vh - 176px));
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .03)), rgba(8, 6, 5, .42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+            padding: clamp(28px, 5vw, 68px);
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            align-content: center;
+            gap: 26px;
+        }
+
+        .hero-inner::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            z-index: -1;
+            background: radial-gradient(circle at 16% 12%, rgba(255, 209, 102, .18), transparent 28%), radial-gradient(circle at 82% 86%, rgba(231, 71, 29, .17), transparent 28%);
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: 10px;
+            padding: 9px 13px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .14);
+            border: 1px solid rgba(255, 138, 36, .28);
+            color: var(--yellow);
+            font-weight: 900;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h1 {
+            font-size: clamp(50px, 9vw, 118px);
+            line-height: .86;
+            letter-spacing: -.08em;
+            text-transform: uppercase;
+            text-shadow: 0 12px 38px rgba(0, 0, 0, .45);
+            max-width: 980px;
+        }
+
+        h2 {
+            font-size: clamp(36px, 5.6vw, 72px);
+            line-height: .92;
+            letter-spacing: -.06em;
+            text-transform: uppercase;
+            max-width: 1000px;
+        }
+
+        h3 {
+            font-size: clamp(22px, 2.8vw, 34px);
+            letter-spacing: -.03em;
+        }
+
+        .lead {
+            font-size: clamp(18px, 2.1vw, 27px);
+            line-height: 1.22;
+            color: rgba(255, 240, 207, .84);
+            max-width: 850px;
+            font-weight: 650;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .meta-chip {
+            padding: 10px 13px;
+            border-radius: 999px;
+            border: 1px solid var(--stroke);
+            background: rgba(255, 255, 255, .06);
+            color: rgba(255, 240, 207, .78);
+            font-weight: 800;
+        }
+
+        .confidential {
+            width: fit-content;
+            border: 1px solid rgba(255, 209, 102, .36);
+            border-radius: 18px;
+            background: rgba(255, 209, 102, .10);
+            color: rgba(255, 240, 207, .88);
+            padding: 14px 16px;
+            line-height: 1.35;
+            max-width: 760px;
+        }
+
+        .content-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto 80px;
+            display: grid;
+            grid-template-columns: 268px minmax(0, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .side-nav {
+            position: sticky;
+            top: 92px;
+            border: 1px solid var(--stroke);
+            border-radius: 24px;
+            background: rgba(8, 6, 5, .52);
+            backdrop-filter: blur(18px);
+            padding: 16px;
+            max-height: calc(100vh - 116px);
+            overflow: auto;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .side-nav strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 10px;
+        }
+
+        .side-nav a {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 9px 10px;
+            border-radius: 14px;
+            color: rgba(255, 240, 207, .72);
+            font-size: 13px;
+            line-height: 1.15;
+            transition: .18s ease;
+        }
+
+        .side-nav a:hover {
+            color: var(--dark);
+            background: var(--yellow);
+        }
+
+        .side-nav a span {
+            font-weight: 900;
+            opacity: .72;
+            font-size: 11px;
+            min-width: 24px;
+        }
+
+        .main-content {
+            display: grid;
+            gap: 28px;
+        }
+
+        .section {
+            border: 1px solid var(--stroke);
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(255, 255, 255, .08), rgba(255, 255, 255, .025)), rgba(8, 6, 5, .42);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+            padding: clamp(24px, 3.4vw, 44px);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            right: -80px;
+            top: -80px;
+            width: 200px;
+            height: 200px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .12);
+            filter: blur(2px);
+        }
+
+        .section-header {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .section-header p {
+            color: rgba(255, 240, 207, .76);
+            font-size: 18px;
+            line-height: 1.42;
+            max-width: 820px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .summary-card {
+            border: 1px solid rgba(255, 240, 207, .16);
+            border-radius: 22px;
+            background: rgba(255, 240, 207, .07);
+            padding: 18px;
+            min-height: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-card::after {
+            content: "";
+            position: absolute;
+            width: 84px;
+            height: 84px;
+            right: -32px;
+            top: -32px;
+            border-radius: 999px;
+            background: rgba(255, 138, 36, .13);
+        }
+
+        .summary-card span {
+            display: block;
+            color: rgba(255, 240, 207, .62);
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            font-weight: 900;
+            font-size: 11px;
+            margin-bottom: 9px;
+        }
+
+        .summary-card strong {
+            display: block;
+            color: var(--yellow);
+            font-size: 24px;
+            line-height: 1.02;
+            letter-spacing: -.04em;
+            margin-bottom: 10px;
+        }
+
+        .summary-card p {
+            color: rgba(255, 240, 207, .75);
+            line-height: 1.35;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 18px;
+            background: rgba(8, 6, 5, .35);
+            border: 1px solid rgba(255, 240, 207, .14);
+        }
+
+        th,
+        td {
+            padding: 14px 14px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 240, 207, .12);
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--yellow);
+            font-size: 12px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            background: rgba(255, 138, 36, .10);
+        }
+
+        td {
+            color: rgba(255, 240, 207, .80);
+            line-height: 1.35;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .callout {
+            border: 1px solid var(--stroke-strong);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255, 209, 102, .14), rgba(255, 138, 36, .06));
+            padding: 22px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .callout strong {
+            color: var(--yellow);
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .callout p,
+        .callout li {
+            color: rgba(255, 240, 207, .78);
+            line-height: 1.4;
+        }
+
+        .callout ul {
+            margin: 0;
+            padding-left: 20px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .article-card {
+            scroll-margin-top: 104px;
+            border: 1px solid rgba(255, 240, 207, .16);
+            border-radius: 26px;
+            background: rgba(255, 240, 207, .065);
+            padding: clamp(22px, 3vw, 34px);
+            display: grid;
+            gap: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red));
+            opacity: .9;
+        }
+
+        .article-topline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 240, 207, .60);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            font-size: 12px;
+        }
+
+        .article-index {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 13px;
+            background: rgba(255, 209, 102, .14);
+            color: var(--yellow);
+            border: 1px solid rgba(255, 209, 102, .24);
+        }
+
+        .article-card h3 {
+            color: var(--cream);
+        }
+
+        .article-summary {
+            color: var(--yellow);
+            font-weight: 750;
+            line-height: 1.35;
+        }
+
+        .article-body {
+            display: grid;
+            gap: 12px;
+            color: rgba(255, 240, 207, .82);
+            font-size: 16.5px;
+            line-height: 1.52;
+        }
+
+        .article-body p {
+            line-height: 1.52;
+            color: rgba(255, 240, 207, .82);
+        }
+
+        .legal-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .legal-list li {
+            padding: 10px 12px;
+            border: 1px solid rgba(255, 240, 207, .12);
+            border-radius: 14px;
+            background: rgba(8, 6, 5, .28);
+            color: rgba(255, 240, 207, .80);
+            line-height: 1.45;
+        }
+
+        .article-stack {
+            display: grid;
+            gap: 18px;
+        }
+
+        .footer {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto 50px;
+            color: rgba(255, 240, 207, .58);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 980px) {
+            .content-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .side-nav {
+                position: relative;
+                top: auto;
+                max-height: none;
+            }
+
+            .summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                border-radius: 24px;
+                align-items: flex-start;
+            }
+
+            .top-actions {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .brand {
+                font-size: 11px;
+            }
+
+            .pill-btn {
+                padding: 9px 10px;
+                font-size: 12px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 10px;
+            }
+
+            .hero {
+                padding-top: 112px;
+            }
+
+            h1 {
+                font-size: 46px;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                color: #111;
+            }
+
+            body::before,
+            body::after,
+            .progress,
+            .topbar,
+            .side-nav {
+                display: none !important;
+            }
+
+            .hero,
+            .content-shell,
+            .footer {
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                display: block;
+            }
+
+            .hero-inner,
+            .section,
+            .article-card,
+            .summary-card,
+            .callout {
+                box-shadow: none;
+                background: #fff;
+                color: #111;
+                border-color: #ccc;
+                break-inside: avoid;
+            }
+
+            .content-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                gap: 18px;
+            }
+
+            h1,
+            h2,
+            h3,
+            .summary-card strong,
+            .article-summary,
+            .eyebrow,
+            th {
+                color: #111;
+            }
+
+            p,
+            td,
+            .article-body,
+            .article-body p,
+            .legal-list li,
+            .callout p,
+            .callout li,
+            .section-header p {
+                color: #222;
+            }
+
+            table {
+                background: #fff;
+            }
+
+            .section {
+                margin: 14px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress" id="progress"></div>
+    <header class="topbar">
+        <a class="brand" href="#inicio"><span class="brand-mark"></span><span>FECOFESI S.R.L.</span></a>
+        <div class="top-actions">
+            <a class="pill-btn" href="index.html">Index</a>
+            <a class="pill-btn" href="#resumen">Resumen</a>
+            <a class="pill-btn" href="#socios">Socios</a>
+            <a class="pill-btn" href="#articulos">Artículos</a>
+            <button class="pill-btn" onclick="window.print()">Imprimir / PDF</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="inicio">
+            <div class="hero-inner">
+                <span class="eyebrow">Contrato constitutivo · Estatuto societario</span>
+                <h1>FECOFESI S.R.L.</h1>
+                <p class="lead">Página institucional y legible para presentar los estatutos de la sociedad: socios,
+                    capital, objeto social, administración, mayorías, fiscalización, disolución, arbitraje y cláusulas
+                    transitorias.</p>
+                <div class="hero-meta">
+                    <span class="meta-chip">Sociedad de Responsabilidad Limitada</span>
+                    <span class="meta-chip">CABA · 26 de marzo de 2026</span>
+                    <span class="meta-chip">21 artículos</span>
+                    <span class="meta-chip">Capital: $4.000.000</span>
+                </div>
+
+        </section>
+
+        <div class="content-shell">
+            <aside class="side-nav">
+                <strong>Índice del estatuto</strong>
+                <a href="#resumen"><span>00</span>Resumen ejecutivo</a>
+                <a href="#socios"><span>01</span>Socios y capital</a>
+                <a href="#administracion"><span>02</span>Administración</a>
+                <a href="#gobierno"><span>03</span>Gobierno societario</a>
+                <a href="#articulos"><span>04</span>Texto por artículos</a>
+                <a href="#articulo-01"><span>01</span>Denominación</a>
+                <a href="#articulo-02"><span>02</span>Domicilio</a>
+                <a href="#articulo-03"><span>03</span>Objeto Social</a>
+                <a href="#articulo-04"><span>04</span>Plazo</a>
+                <a href="#articulo-05"><span>05</span>Capital Social</a>
+                <a href="#articulo-06"><span>06</span>Integración Del Capital</a>
+                <a href="#articulo-07"><span>07</span>Cesión De Cuotas</a>
+                <a href="#articulo-08"><span>08</span>Incorporación De Herederos</a>
+                <a href="#articulo-09"><span>09</span>Administración Y Representación</a>
+                <a href="#articulo-10"><span>10</span>Facultades De La Gerencia</a>
+                <a href="#articulo-11"><span>11</span>Reuniones De Socios</a>
+                <a href="#articulo-12"><span>12</span>Mayorías</a>
+                <a href="#articulo-13"><span>13</span>Fiscalización</a>
+                <a href="#articulo-14"><span>14</span>Ejercicio Social</a>
+                <a href="#articulo-15"><span>15</span>Utilidades Y Pérdidas</a>
+                <a href="#articulo-16"><span>16</span>Disolución Y Liquidación</a>
+                <a href="#articulo-17"><span>17</span>Jurisdicción</a>
+                <a href="#articulo-18"><span>18</span>Desempate Y Bloqueo Societario</a>
+                <a href="#articulo-19"><span>19</span>Cláusula Compromisoria</a>
+                <a href="#articulo-20"><span>20</span>Cláusulas Transitorias</a>
+                <a href="#articulo-21"><span>21</span>Distribución De Utilidades</a>
+            </aside>
+
+            <div class="main-content">
+                <section class="section" id="resumen">
+                    <div class="section-header">
+                        <span class="eyebrow">Vista rápida</span>
+                        <h2>Resumen ejecutivo</h2>
+                        <p>Lectura sintética del contrato constitutivo para entender la estructura de FECOFESI S.R.L.
+                            antes de entrar al texto legal completo.</p>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card"><span>Denominación</span><strong>FECOFESI S.R.L.</strong>
+                            <p>Sociedad de Responsabilidad Limitada</p>
+                        </div>
+                        <div class="summary-card"><span>Sede social</span><strong>Lima 757 aula s245, CABA</strong>
+                            <p>Domicilio legal y sede fijada</p>
+                        </div>
+                        <div class="summary-card"><span>Objeto</span><strong>Videojuegos y software interactivo</strong>
+                            <p>Desarrollo, publishing, IP, servicios y contenidos</p>
+                        </div>
+                        <div class="summary-card"><span>Plazo</span><strong>30 años</strong>
+                            <p>Desde la inscripción registral</p>
+                        </div>
+                        <div class="summary-card"><span>Capital social</span><strong>$4.000.000</strong>
+                            <p>4.000 cuotas de $1.000</p>
+                        </div>
+                        <div class="summary-card"><span>Participación</span><strong>25% cada socio</strong>
+                            <p>1.000 cuotas por integrante</p>
+                        </div>
+                        <div class="summary-card"><span>Gerencia inicial</span><strong>Cosme Guillermo Argerich</strong>
+                            <p>Representación legal individual</p>
+                        </div>
+                        <div class="summary-card"><span>Cierre de ejercicio</span><strong>24 de abril</strong>
+                            <p>Estados contables anuales</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="socios">
+                    <div class="section-header">
+                        <span class="eyebrow">Integrantes y cuotas</span>
+                        <h2>Socios fundadores y capital</h2>
+                        <p>La sociedad se constituye con cuatro socios, cada uno con la misma participación económica y
+                            política: 1.000 cuotas sociales, equivalentes al 25% del capital.</p>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Socio</th>
+                                <th>Actividad declarada</th>
+                                <th>DNI</th>
+                                <th>Domicilio real</th>
+                                <th>Participación</th>
+                                <th>Cuotas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cosme Guillermo Argerich</td>
+                                <td>Programador</td>
+                                <td>44.485.709</td>
+                                <td>Av. General Gelly y Obes 2268 piso 10, Ciudad Autónoma de Buenos Aires</td>
+                                <td>25%</td>
+                                <td>1.000</td>
+                            </tr>
+                            <tr>
+                                <td>Morales Lozano Simón</td>
+                                <td>Desarrollador de Videojuegos</td>
+                                <td>43.954.723</td>
+                                <td>Cacique Yatel 2137, Río Gallegos, Santa Cruz</td>
+                                <td>25%</td>
+                                <td>1.000</td>
+                            </tr>
+                            <tr>
+                                <td>Degraf Federico Tomas</td>
+                                <td>Programador</td>
+                                <td>41.557.360</td>
+                                <td>Avenida Juan B. Justo 3728, piso 3 departamento 8, Ciudad Autónoma de Buenos Aires
+                                </td>
+                                <td>25%</td>
+                                <td>1.000</td>
+                            </tr>
+                            <tr>
+                                <td>Federico Pablo Leguizamo</td>
+                                <td>Desarrollador de Videojuegos</td>
+                                <td>46.211.084</td>
+                                <td>Pedro Goyena 1436 piso 12,Ciudad Autónoma de Buenos Aires</td>
+                                <td>25%</td>
+                                <td>1.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="height:18px"></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Socio</th>
+                                <th>Cuotas suscriptas</th>
+                                <th>Monto</th>
+                                <th>% capital</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cosme Guillermo Argerich</td>
+                                <td>1.000</td>
+                                <td>$1.000.000</td>
+                                <td>25%</td>
+                            </tr>
+                            <tr>
+                                <td>Morales Lozano Simón</td>
+                                <td>1.000</td>
+                                <td>$1.000.000</td>
+                                <td>25%</td>
+                            </tr>
+                            <tr>
+                                <td>Degraf Federico Tomas</td>
+                                <td>1.000</td>
+                                <td>$1.000.000</td>
+                                <td>25%</td>
+                            </tr>
+                            <tr>
+                                <td>Federico Pablo Leguizamo</td>
+                                <td>1.000</td>
+                                <td>$1.000.000</td>
+                                <td>25%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="section" id="administracion">
+                    <div class="section-header">
+                        <span class="eyebrow">Gerencia y representación</span>
+                        <h2>Administración de la sociedad</h2>
+                        <p>El estatuto establece una gerencia unipersonal, con representación legal individual y
+                            facultades para actos del giro ordinario, más una serie de actos que requieren aprobación
+                            previa de socios.</p>
+                    </div>
+                    <div class="two-col">
+                        <div class="callout">
+                            <strong>Gerente inicial</strong>
+                            <p>La gerencia será ejercida inicialmente por Cosme Guillermo Argerich, quien tendrá el uso
+                                de la firma social y podrá obligar válidamente a la sociedad dentro del giro ordinario.
+                            </p>
+                        </div>
+                        <div class="callout">
+                            <strong>Actos con aprobación previa</strong>
+                            <ul>
+                                <li>la apertura o cierre de cuentas bancarias</li>
+                                <li>la disposición de fondos por montos superiores a $5.000.000</li>
+                                <li>la celebración, modificación o rescisión de contratos cuyo monto total supere la
+                                    suma de $10.000.000</li>
+                                <li>la adquisición, venta, cesión, licencia o gravamen de bienes registrables o activos
+                                    esenciales</li>
+                                <li>la cesión, licencia exclusiva, venta o disposición de videojuegos, software, código
+                                    fuente, marcas, dominios, diseños, arte, música y demás activos de propiedad
+                                    intelectual de titularidad social</li>
+                                <li>la toma de préstamos, créditos o financiamiento</li>
+                                <li>el otorgamiento de poderes generales</li>
+                                <li>la incorporación o desvinculación de personal jerárquico o contratos estratégicos
+                                </li>
+                                <li>la promoción, contestación o desistimiento de acciones judiciales o arbitrales de
+                                    relevancia económica</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="gobierno">
+                    <div class="section-header">
+                        <span class="eyebrow">Reglas internas</span>
+                        <h2>Gobierno societario</h2>
+                        <p>El contrato ordena la toma de decisiones mediante reuniones de socios, mayorías especiales
+                            para reformas, reglas de fiscalización, mecanismos de desbloqueo y arbitraje.</p>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card"><span>Reuniones</span><strong>Presenciales o fehacientes</strong>
+                            <p>Se permite adoptar resoluciones por medios que garanticen autenticidad, simultaneidad y
+                                constancia.</p>
+                        </div>
+                        <div class="summary-card"><span>Reformas</span><strong>3/4 del capital</strong>
+                            <p>Las modificaciones del contrato social requieren mayoría especial.</p>
+                        </div>
+                        <div class="summary-card"><span>Bloqueo</span><strong>Mediación + arbitraje</strong>
+                            <p>Ante empate persistente, se prevé mediación privada y luego arbitraje.</p>
+                        </div>
+                        <div class="summary-card"><span>Fiscalización</span><strong>Socios</strong>
+                            <p>La fiscalización queda a cargo de los socios salvo exigencias legales adicionales.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="articulos">
+                    <div class="section-header">
+                        <span class="eyebrow">Texto completo</span>
+                        <h2>Estatuto por artículos</h2>
+                        <p>Versión reorganizada para lectura web. El contenido se mantiene con el sentido del contrato
+                            constitutivo original.</p>
+                    </div>
+                    <div class="article-stack">
+
+                        <article class="article-card" id="articulo-01">
+                            <div class="article-topline">
+                                <span class="article-index">01</span>
+                                <span class="article-ordinal">Artículo Primero</span>
+                            </div>
+                            <h3>Denominación</h3>
+                            <p class="article-summary">Nombre legal de la sociedad.</p>
+                            <div class="article-body">
+                                <p>La sociedad girará bajo la denominación “FECOFESI S.R.L.”.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-02">
+                            <div class="article-topline">
+                                <span class="article-index">02</span>
+                                <span class="article-ordinal">Artículo Segundo</span>
+                            </div>
+                            <h3>Domicilio</h3>
+                            <p class="article-summary">Domicilio legal y posibilidad de abrir sedes.</p>
+                            <div class="article-body">
+                                <p>La sociedad tendrá domicilio legal en Lima 757 aula s245,Ciudad Autónoma de Buenos
+                                    Aires, pudiendo establecer sucursales, agencias, representaciones o cualquier otro
+                                    tipo de establecimiento en cualquier lugar del país o del exterior, por decisión de
+                                    la gerencia.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-03">
+                            <div class="article-topline">
+                                <span class="article-index">03</span>
+                                <span class="article-ordinal">Artículo Tercero</span>
+                            </div>
+                            <h3>Objeto Social</h3>
+                            <p class="article-summary">Objeto social amplio vinculado a videojuegos, software, servicios
+                                e IP.</p>
+                            <div class="article-body">
+                                <p>La sociedad tendrá por objeto dedicarse, por cuenta propia, de terceros o asociada a
+                                    terceros, en el país o en el exterior, a las siguientes actividades:</p>
+                                <ul class="legal-list">
+                                    <li>a) El diseño, desarrollo, programación, producción, edición, publicación,
+                                        explotación, comercialización, distribución, importación, exportación,
+                                        licenciamiento, sub licenciamiento y cesión de videojuegos, videojuegos móviles,
+                                        videojuegos para PC, consola, web, realidad virtual, realidad aumentada,
+                                        software interactivo, experiencias gamificadas, aplicaciones lúdicas y productos
+                                        digitales afines.</li>
+                                </ul>
+                                <ul class="legal-list">
+                                    <li>b) El desarrollo de motores, herramientas, plug-ins, assets, bibliotecas, SDKs,
+                                        sistemas, utilidades, middleware, mods, expansiones, DLC, contenidos
+                                        descargables, plataformas, backends y demás soluciones tecnológicas vinculadas
+                                        con videojuegos y entretenimiento digital.</li>
+                                </ul>
+                                <ul class="legal-list">
+                                    <li>c) La creación y explotación de contenidos artísticos y audiovisuales vinculados
+                                        con videojuegos y productos interactivos, incluyendo arte conceptual, modelado
+                                        2D y 3D, animación, rigging, interfaces, experiencia de usuario, sonido, música,
+                                        narrativa, doblaje, cinemáticas, trailers, piezas promocionales y contenidos
+                                        para comunidades digitales.</li>
+                                </ul>
+                                <ul class="legal-list">
+                                    <li>d) La prestación de servicios a terceros vinculados con videojuegos, tales como
+                                        programación, game design, level design, testing, control de calidad (QA),
+                                        localización, porting, optimización, mantenimiento, soporte, analítica,
+                                        monetización, live operations, publishing, community management, consultoría
+                                        técnica y creativa, capacitación y mentoría.</li>
+                                </ul>
+                                <ul class="legal-list">
+                                    <li>e) La adquisición, administración, registro, protección, explotación, cesión y
+                                        licenciamiento de derechos de propiedad intelectual e industrial vinculados con
+                                        sus desarrollos, incluyendo marcas, nombres comerciales, dominios, software,
+                                        obras artísticas, audiovisuales, musicales y literarias relacionadas con el
+                                        objeto social.</li>
+                                </ul>
+                                <ul class="legal-list">
+                                    <li>f) La celebración de toda clase de actos y contratos civiles, comerciales,
+                                        tecnológicos y de colaboración empresarial que resulten necesarios, convenientes
+                                        o complementarios para el cumplimiento del objeto social.</li>
+                                </ul>
+                                <p>A tales fines, la sociedad podrá realizar todos los actos jurídicos, contratos y
+                                    operaciones que se vinculen directa o indirectamente con su objeto social y que no
+                                    sean notoriamente extraños al mismo.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-04">
+                            <div class="article-topline">
+                                <span class="article-index">04</span>
+                                <span class="article-ordinal">Artículo Cuarto</span>
+                            </div>
+                            <h3>Plazo</h3>
+                            <p class="article-summary">Duración de la sociedad.</p>
+                            <div class="article-body">
+                                <p>La duración de la sociedad será de TREINTA (30) años contados desde la fecha de su
+                                    inscripción en el Registro Público correspondiente, pudiendo ser prorrogada por
+                                    resolución de socios adoptada conforme a la ley y al presente contrato.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-05">
+                            <div class="article-topline">
+                                <span class="article-index">05</span>
+                                <span class="article-ordinal">Artículo Quinto</span>
+                            </div>
+                            <h3>Capital Social</h3>
+                            <p class="article-summary">Capital, cuotas y distribución entre socios.</p>
+                            <div class="article-body">
+                                <p>El capital social se fija en la suma de PESOS Cuatro millones ($4.000.000), dividido
+                                    en 4000 cuotas sociales de valor nominal PESOS Mil ($1000) cada una, con derecho a
+                                    un voto por cuota.</p>
+                                <p>El capital es suscripto por los socios de la siguiente manera:</p>
+                                <p>- Cosme Guillermo Argerich; suscribe 1000 cuotas, por un total de $1.000.000,
+                                    equivalentes al 25% del capital social. - Morales Lozano Simón; suscribe 1000
+                                    cuotas, por un total de $1.000.000, equivalentes al 25% del capital social. -
+                                    Federico Tomas Degraf; suscribe 1000 cuotas, por un total de $1.000.000,
+                                    equivalentes al 25% del capital social. - Federico Pablo Leguizamo; suscribe 1000
+                                    cuotas, por un total de $1.000.000, equivalentes al 25% del capital social.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-06">
+                            <div class="article-topline">
+                                <span class="article-index">06</span>
+                                <span class="article-ordinal">Artículo Sexto</span>
+                            </div>
+                            <h3>Integración Del Capital</h3>
+                            <p class="article-summary">Forma y plazo de integración de aportes.</p>
+                            <div class="article-body">
+                                <p>Los socios integran en este acto el capital social de la siguiente forma:</p>
+                                <ul class="legal-list">
+                                    <li>a) Los aportes dinerarios se integran en un 25% en este acto, comprometiéndose
+                                        los socios a integrar el saldo dentro del plazo legal.</li>
+                                    <li>b) En caso de existir aportes en especie, éstos se integran totalmente en este
+                                        acto, conforme la valuación y documentación respaldatoria que se acompañe.</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-07">
+                            <div class="article-topline">
+                                <span class="article-index">07</span>
+                                <span class="article-ordinal">Artículo Séptimo</span>
+                            </div>
+                            <h3>Cesión De Cuotas</h3>
+                            <p class="article-summary">Procedimiento para transferir cuotas y derecho de preferencia.
+                            </p>
+                            <div class="article-body">
+                                <p>Las cuotas son transmisibles conforme la ley y este contrato. El socio que desee
+                                    ceder total o parcialmente sus cuotas a terceros deberá notificar fehacientemente a
+                                    la gerencia, indicando identidad del potencial adquirente, cantidad de cuotas y
+                                    precio.</p>
+                                <p>Los demás socios tendrán derecho de preferencia para adquirirlas en proporción a sus
+                                    participaciones, dentro del plazo de TREINTA (30) días corridos desde la
+                                    notificación. Si ninguno ejerciera dicho derecho dentro del plazo indicado, el socio
+                                    cedente quedará habilitado para realizar la cesión en las condiciones notificadas.
+                                </p>
+                                <p>Toda cesión de cuotas deberá instrumentarse por escrito y será oponible frente a la
+                                    sociedad y a terceros conforme a la ley, una vez cumplidos los recaudos de
+                                    comunicación e inscripción pertinentes.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-08">
+                            <div class="article-topline">
+                                <span class="article-index">08</span>
+                                <span class="article-ordinal">Artículo Octavo</span>
+                            </div>
+                            <h3>Incorporación De Herederos</h3>
+                            <p class="article-summary">Reglas ante fallecimiento de un socio e incorporación de
+                                herederos.</p>
+                            <div class="article-body">
+                                <p>En caso de fallecimiento de un socio, sus herederos podrán incorporarse a la sociedad
+                                    una vez acreditada su calidad. Hasta tanto ello ocurra, actuará en su representación
+                                    el administrador de la sucesión o quien legalmente corresponda.</p>
+                                <p>Los socios supérstites podrán ejercer derecho de preferencia para adquirir las cuotas
+                                    del socio fallecido, al mismo valor que resulte de común acuerdo o, en su defecto,
+                                    devaluación profesional independiente.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-09">
+                            <div class="article-topline">
+                                <span class="article-index">09</span>
+                                <span class="article-ordinal">Artículo Noveno</span>
+                            </div>
+                            <h3>Administración Y Representación</h3>
+                            <p class="article-summary">Administración, representación y actos que requieren aprobación
+                                previa.</p>
+                            <div class="article-body">
+                                <p>La administración y representación legal de la sociedad estará a cargo de un (1)
+                                    gerente, socio o no, designado por este contrato o posteriormente por reunión de
+                                    socios, conforme la ley y el presente contrato.</p>
+                                <p>La gerencia será ejercida inicialmente por Cosme Guillermo Argerich, DNI Nº
+                                    44.485.709, quien ejercerá el cargo de gerente.</p>
+                                <p>El gerente actuará en forma individual y tendrá el uso de la firma social, obligando
+                                    válidamente a la sociedad para todos los actos de administración ordinaria
+                                    vinculados al giro habitual de la sociedad y para todos aquellos actos que no sean
+                                    notoriamente extraños al objeto social, con las limitaciones establecidas en este
+                                    contrato.</p>
+                                <p>Requerirán resolución previa de socios los siguientes actos:</p>
+                                <ul class="legal-list">
+                                    <li>a) la apertura o cierre de cuentas bancarias;</li>
+                                    <li>b) la disposición de fondos por montos superiores a $5.000.000;</li>
+                                    <li>c) la celebración, modificación o rescisión de contratos cuyo monto total supere
+                                        la suma de $10.000.000;</li>
+                                    <li>d) la adquisición, venta, cesión, licencia o gravamen de bienes registrables o
+                                        activos esenciales;</li>
+                                    <li>e) la cesión, licencia exclusiva, venta o disposición de videojuegos, software,
+                                        código fuente, marcas, dominios, diseños, arte, música y demás activos de
+                                        propiedad intelectual de titularidad social;</li>
+                                    <li>f) la toma de préstamos, créditos o financiamiento;</li>
+                                    <li>g) el otorgamiento de poderes generales;</li>
+                                    <li>h) la incorporación o desvinculación de personal jerárquico o contratos
+                                        estratégicos;</li>
+                                    <li>i) la promoción, contestación o desistimiento de acciones judiciales o
+                                        arbitrales de relevancia económica.</li>
+                                </ul>
+                                <p>El gerente durará en su cargo por plazo indeterminado, pudiendo ser reelegido o
+                                    removido por resolución de socios conforme la ley y el presente contrato.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-10">
+                            <div class="article-topline">
+                                <span class="article-index">10</span>
+                                <span class="article-ordinal">Artículo Décimo</span>
+                            </div>
+                            <h3>Facultades De La Gerencia</h3>
+                            <p class="article-summary">Facultades generales de la gerencia y límites especiales.</p>
+                            <div class="article-body">
+                                <p>El gerente tendrá amplias facultades de administración y disposición, inclusive para:
+                                </p>
+                                <ul class="legal-list">
+                                    <li>a) comprar, vender, permutar, ceder, locar y gravar bienes muebles;</li>
+                                    <li>b) celebrar contratos civiles y comerciales;</li>
+                                    <li>c) abrir, operar y cerrar cuentas bancarias;</li>
+                                    <li>d) solicitar créditos y financiaciones;</li>
+                                    <li>e) suscribir contratos laborales, de locación de obra y de servicios;</li>
+                                    <li>f) registrar marcas, nombres de dominio, software y demás activos intangibles;
+                                    </li>
+                                    <li>g) comparecer en juicio por sí o por apoderados;</li>
+                                    <li>h) otorgar poderes generales o especiales;</li>
+                                    <li>i) celebrar contratos de licencia, publishing, distribución y comercialización;
+                                    </li>
+                                    <li>j) realizar todos los actos necesarios para el giro ordinario de la sociedad.
+                                    </li>
+                                </ul>
+                                <p>Para los siguientes actos será necesaria resolución previa de socios:</p>
+                                <ul class="legal-list">
+                                    <li>1. venta de activos esenciales de la sociedad;</li>
+                                    <li>2. transformación, fusión, escisión o disolución anticipada;</li>
+                                    <li>3. incorporación de nuevos socios;</li>
+                                    <li>4. aumento o reducción de capital;</li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-11">
+                            <div class="article-topline">
+                                <span class="article-index">11</span>
+                                <span class="article-ordinal">Artículo Décimo Primero</span>
+                            </div>
+                            <h3>Reuniones De Socios</h3>
+                            <p class="article-summary">Forma de convocar y celebrar reuniones de socios.</p>
+                            <div class="article-body">
+                                <p>Las resoluciones sociales podrán adoptarse en reunión presencial o por cualquier
+                                    medio fehaciente que permita garantizar autenticidad, simultaneidad y adecuada
+                                    constancia, conforme la normativa aplicable.</p>
+                                <p>Las convocatorias deberán cursarse al domicilio o correo electrónico denunciado por
+                                    cada socio con una anticipación no menor a CINCO (5) días hábiles, salvo casos de
+                                    urgencia o unanimidad.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-12">
+                            <div class="article-topline">
+                                <span class="article-index">12</span>
+                                <span class="article-ordinal">Artículo Décimo Segundo</span>
+                            </div>
+                            <h3>Mayorías</h3>
+                            <p class="article-summary">Mayorías para decisiones ordinarias y reformas contractuales.</p>
+                            <div class="article-body">
+                                <p>Las resoluciones que impliquen modificación del contrato social requerirán el voto
+                                    favorable de socios que representen por lo menos las TRES CUARTAS PARTES (3/4) del
+                                    capital social, sin perjuicio de las mayorías especiales previstas por la ley.</p>
+                                <p>Las resoluciones ordinarias que no impliquen reforma contractual se adoptarán por
+                                    mayoría del capital presente en la reunión o participante en el acuerdo, salvo que
+                                    la ley o este contrato exijan una mayoría superior.</p>
+                                <p>Si un solo socio representase el voto mayoritario en los supuestos en que la ley así
+                                    lo requiera, será necesario además el voto favorable de al menos otro socio.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-13">
+                            <div class="article-topline">
+                                <span class="article-index">13</span>
+                                <span class="article-ordinal">Artículo Décimo Tercero</span>
+                            </div>
+                            <h3>Fiscalización</h3>
+                            <p class="article-summary">Fiscalización por los socios.</p>
+                            <div class="article-body">
+                                <p>La fiscalización de la sociedad estará a cargo de los socios, sin perjuicio de la
+                                    obligación de designar sindicatura o consejo de vigilancia cuando la ley lo exija.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-14">
+                            <div class="article-topline">
+                                <span class="article-index">14</span>
+                                <span class="article-ordinal">Artículo Décimo Cuarto</span>
+                            </div>
+                            <h3>Ejercicio Social</h3>
+                            <p class="article-summary">Cierre del ejercicio económico-financiero.</p>
+                            <div class="article-body">
+                                <p>El ejercicio económico-financiero cerrará el día 24 de abril de cada año. A esa fecha
+                                    se confeccionarán los estados contables conforme la normativa vigente.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-15">
+                            <div class="article-topline">
+                                <span class="article-index">15</span>
+                                <span class="article-ordinal">Artículo Décimo Quinto</span>
+                            </div>
+                            <h3>Utilidades Y Pérdidas</h3>
+                            <p class="article-summary">Distribución de utilidades y absorción de pérdidas.</p>
+                            <div class="article-body">
+                                <p>Las utilidades líquidas y realizadas que resulten de los estados contables aprobados
+                                    serán distribuidas entre los socios en proporción a sus respectivas cuotas sociales,
+                                    previa absorción de pérdidas de ejercicios anteriores, constitución de reservas
+                                    legales si correspondieren y demás afectaciones que resuelva la reunión de socios.
+                                </p>
+                                <p>Las pérdidas serán soportadas por los socios en proporción a sus participaciones en
+                                    el capital social.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-16">
+                            <div class="article-topline">
+                                <span class="article-index">16</span>
+                                <span class="article-ordinal">Artículo Décimo Sexto</span>
+                            </div>
+                            <h3>Disolución Y Liquidación</h3>
+                            <p class="article-summary">Procedimiento de disolución y liquidación.</p>
+                            <div class="article-body">
+                                <p>Disuelta la sociedad por cualquiera de las causales legales o contractuales, la
+                                    liquidación estará a cargo de la persona o personas que designe la reunión de
+                                    socios.</p>
+                                <p>Una vez cancelado el pasivo social, el remanente se distribuirá entre los socios en
+                                    proporción a sus respectivas cuotas sociales.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-17">
+                            <div class="article-topline">
+                                <span class="article-index">17</span>
+                                <span class="article-ordinal">Artículo Décimo Séptimo</span>
+                            </div>
+                            <h3>Jurisdicción</h3>
+                            <p class="article-summary">Jurisdicción aplicable.</p>
+                            <div class="article-body">
+                                <p>Para todos los efectos legales derivados del presente contrato, las partes se someten
+                                    a la jurisdicción de los tribunales ordinarios con competencia en el domicilio
+                                    social, con renuncia a cualquier otro fuero o jurisdicción que pudiera corresponder.
+                                </p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-18">
+                            <div class="article-topline">
+                                <span class="article-index">18</span>
+                                <span class="article-ordinal">Artículo Décimo Octavo</span>
+                            </div>
+                            <h3>Desempate Y Bloqueo Societario</h3>
+                            <p class="article-summary">Mecanismo ante empate o bloqueo societario.</p>
+                            <div class="article-body">
+                                <p>Las resoluciones ordinarias se adoptarán por mayoría simple del capital social
+                                    presente. En caso de empate, se convocará una nueva reunión dentro de los diez (10)
+                                    días corridos. Si respecto de cualquiera de estas materias se produjera bloqueo
+                                    societario en dos reuniones consecutivas, las partes se someterán previamente a una
+                                    instancia de mediación privada. Si el bloqueo persistiera por más de treinta (30)
+                                    días corridos desde la segunda reunión, cualquiera de los socios podrá requerir la
+                                    resolución de la controversia mediante arbitraje, de conformidad con la cláusula
+                                    compromisoria prevista en este contrato.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-19">
+                            <div class="article-topline">
+                                <span class="article-index">19</span>
+                                <span class="article-ordinal">Artículo Décimo Noveno</span>
+                            </div>
+                            <h3>Cláusula Compromisoria</h3>
+                            <p class="article-summary">Arbitraje para resolver controversias.</p>
+                            <div class="article-body">
+                                <p>Toda controversia entre los socios o entre éstos y la sociedad, relativa a la
+                                    interpretación, validez, ejecución, cumplimiento o resolución del presente contrato,
+                                    que no pueda resolverse de común acuerdo o mediante la mediación prevista, será
+                                    sometida a arbitraje de derecho, con sede en la Ciudad Autónoma de Buenos Aires, en
+                                    idioma español, por el Tribunal de Arbitraje General del Colegio de Abogados de la
+                                    Ciudad Autónoma de Buenos Aires.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-20">
+                            <div class="article-topline">
+                                <span class="article-index">20</span>
+                                <span class="article-ordinal">Artículo Vigésimo</span>
+                            </div>
+                            <h3>Cláusulas Transitorias</h3>
+                            <p class="article-summary">Sede social y autorizaciones para trámites registrales.</p>
+                            <div class="article-body">
+                                <ul class="legal-list">
+                                    <li>I. SEDE SOCIAL Se fija la sede social en Lima 757 aula s245, Ciudad Autónoma de
+                                        Buenos Aires.</li>
+                                </ul>
+                                <ul class="legal-list">
+                                    <li>II. AUTORIZACIONES Se autoriza a Cosme Guillermo Argerich DNI N° 44.485.709, por
+                                        sí o por apoderado, a realizar todos los trámites necesarios para obtener la
+                                        inscripción de la sociedad, efectuar publicaciones, presentar formularios,
+                                        ratificar datos no esenciales, gestionar la CUIT y cumplir con toda observación
+                                        formal que formule la autoridad registral, con facultades para aceptar
+                                        modificaciones de estilo o de mera forma que no alteren la esencia del presente
+                                        contrato.</li>
+                                </ul>
+                                <p>En prueba de conformidad, se firman 4 ejemplares de un mismo tenor y a un solo
+                                    efecto, en la Ciudad Autónoma de Buenos Aires, República Argentina, a los 26 días
+                                    del mes de marzo de 2026.</p>
+                            </div>
+                        </article>
+
+                        <article class="article-card" id="articulo-21">
+                            <div class="article-topline">
+                                <span class="article-index">21</span>
+                                <span class="article-ordinal">Artículo Vigésimo Primero</span>
+                            </div>
+                            <h3>Distribución De Utilidades</h3>
+                            <p class="article-summary">Reglas específicas para distribución de utilidades y reserva
+                                legal.</p>
+                            <div class="article-body">
+                                <p>Al cierre de cada ejercicio social, y una vez aprobados los estados contables por la
+                                    reunión de socios, las utilidades líquidas y realizadas que resulten podrán
+                                    distribuirse entre los socios en proporción a sus respectivas cuotas sociales.</p>
+                                <p>Antes de distribuir utilidades, deberán absorberse las pérdidas acumuladas, si las
+                                    hubiera, y destinarse el cinco por ciento (5%) de las ganancias realizadas y
+                                    líquidas del ejercicio a la reserva legal hasta alcanzar el veinte por ciento (20%)
+                                    del capital social.</p>
+                                <p>El pago de las utilidades que se aprueben se efectuará en la forma y dentro del plazo
+                                    que resuelva la reunión de socios.</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        FECOFESI S.R.L. · Contrato constitutivo presentado en formato web legible · Generado para uso académico/pitch
+        institucional.
+    </footer>
+
+    <script>
+        const progress = document.getElementById('progress');
+        const updateProgress = () => {
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = height > 0 ? (scrollTop / height) * 100 : 0;
+            progress.style.width = pct + '%';
+        };
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        updateProgress();
+    </script>
+</body>
+
+</html>
